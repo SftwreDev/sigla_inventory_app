@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-sm col-md col-lg">
+    <div class="list-group mt-5">
+      <button
+        type="button"
+        class="list-group-item list-group-item-action disabled"
+        aria-current="true"
+        style="background-color: #1b58fd; color: white"
+      >
+        Get Started
+      </button>
+      <button
+        type="button"
+        class="list-group-item list-group-item-action"
+        onclick="showContent()"
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Click here to generate batch codes"
+      >
+        Generate Code
+      </button>
+      <button
+        type="button"
+        class="list-group-item list-group-item-action"
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Click here to see generated batch codes"
+      >
+        View Generated Codes
+      </button>
+    </div>
+  </div>
+  <div class="col-sm col-md col-lg"></div>
+  <div class="col-sm col-md col-lg"></div>
+</div>
+
+<script>
+  function showContent() {
+    var getStarted = document.getElementById("getStarted");
+    var generateCode = document.getElementById("generateCode");
+    if (getStarted.style.display === "none") {
+      getStarted.style.display = "block";
+      generateCode.style.display = "none";
+    } else {
+      getStarted.style.display = "none";
+      generateCode.style.display = "block";
+    }
+  }
+</script>

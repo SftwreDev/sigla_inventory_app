@@ -1,0 +1,118 @@
+<div
+  class="modal fade"
+  id="updateMongo"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Mongo</h5>
+        <a
+          href="{% url 'mongo:mongo_list' %}"
+          class="btn-close"
+          aria-label="Close"
+        ></a>
+      </div>
+      <form action="/app/v1/update-mongo" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3" style="display: none;">
+            <label for="mongo_id" class="form-label"
+              >ID  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="mongo_id"
+              name="mongo_id"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_batch_no" class="form-label"
+              >Batch No. To Update  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="update_batch_no"
+              name="update_batch_no"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_date_received" class="form-label"
+              >Date Received :
+            </label>
+            <input
+              class="form-control"
+              id="update_date_received"
+              name="update_date_received"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_total_avail_volume" class="form-label"
+              >Total Available Volume :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="update_total_avail_volume"
+              name="update_total_avail_volume"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <label for="new_batch_no" class="form-label"
+              > Enter New Batch No.  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="new_batch_no"
+              name="new_batch_no"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="updateAmountConsumed" class="form-label"
+              >Amount Consumed :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="updateAmountConsumed"
+              id="update_amount_consumed"
+              name="update_amount_consumed"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="updateDateConsumed" class="form-label"
+              >Date Consumed :
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              id="updateDateConsumed"
+              id="update_date_consumed"
+              name="update_date_consumed"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a
+            href="{% url 'mongo:mongo_list' %}"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

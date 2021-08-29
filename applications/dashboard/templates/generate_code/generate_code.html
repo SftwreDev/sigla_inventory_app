@@ -1,0 +1,151 @@
+{% block extrastylesheet %}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+{% endblock extrastylesheet %}
+
+<a
+  href="{% url 'homepage:homepage' %}"
+  class="text-primary text-decoration-none"
+  ><i class="fas fa-arrow-left" aria-hidden="false"></i>&nbsp; Go back to
+  menu</a
+>
+<h5 class="mt-4">Generate Product Code</h5>
+<div class="row mt-4">
+  <div class="col-sm col-md col-lg">
+    <label for="date">Date :</label>
+    <input class="form-control" type="date" id="date" name="date" />
+    <div class="card shadow mt-2" style="font-size: 12px">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-sm text-center" id="studentTable">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>22</td>
+                <td>Crunchies</td>
+                <td>Rice Mongo</td>
+                <td>
+                  <span
+                    type="button"
+                    class="badge"
+                    onclick="generate(value='Crunchies')"
+                    style="background-color: #003871; color: white; font-size: 12px; font-weight: bold;"
+                  >
+                    Select
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm col-md col-lg">
+    <div class="card mt-4">
+      <div class="card-header">
+        <div class="card-body" id="showBox">
+          <!-- <form method="post"> -->
+          {% csrf_token %}
+          <table class="table table-borderless">
+            <tr>
+              <th>Product :</th>
+              <td>
+                <input type="text" id="product" value="" disabled />
+              </td>
+            </tr>
+            <tr>
+              <th>Date :</th>
+              <td>
+                <input type="text" id="dateScheduled" value="" disabled />
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <button
+                  type="button"
+                  class="btn btn-sm"
+                  onclick="submit()"
+                  style="background-color: #003871; color: white"
+                  id="generateBtn"
+                >
+                  Generate Product Code
+                </button>
+                <button
+                  class="btn btn-sm"
+                  type="button"
+                  disabled
+                  style="background-color: #003871; color: white; display: none"
+                  id="generatingLoader"
+                >
+                  <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Generating...
+                </button>
+              </th>
+            </tr>
+          </table>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function generate(value) {
+    console.log("Generating...", value);
+    var date = document.getElementById("date").value;
+    document.getElementById("product").setAttribute("value", value);
+    document.getElementById("showBox").innerHTML += "<br>";
+    document.getElementById("dateScheduled").setAttribute("value", date);
+  }
+
+  function submit() {
+    var product = document.getElementById("product").value;
+    var date = document.getElementById("dateScheduled").value;
+    var generateBtn = document.getElementById("generateBtn");
+    var generatingLoader = document.getElementById("generatingLoader");
+
+    generateBtn.style.display = "none";
+    generatingLoader.style.display = "block";
+    console.log(product, date);
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#studentTable").DataTable({
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      fixedHeader: true,
+    });
+  });
+</script>

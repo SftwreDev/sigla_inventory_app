@@ -1,0 +1,70 @@
+{% extends 'template.html' %} {% block body %}
+
+<style>
+  .card-menu:hover {
+    background-color: #1b58fd;
+    color: white;
+  }
+</style>
+<div class="container">
+  <div class="row">
+    <div id="menuDashboard">{% include 'menu/dashboard_menu.html' %}</div>
+
+    <div id="riceDashboard" style="display: none">
+      {% include 'dashboard/rice/rice_table.html' %}
+    </div>
+
+    <div id="sesameDashboard" style="display: none">
+      {% include 'dashboard/sesame/sesame_table.html' %}
+    </div>
+
+    <div id="marketDashboard" style="display: none">
+      {% include 'dashboard/market/market_table.html' %}
+    </div>
+  </div>
+</div>
+<script>
+  function showMongo() {
+    
+    var mongoInventory  = "{% url 'mongo:mongo_list' %}";
+    document.location.href = mongoInventory;
+
+  }
+  function showRice() {
+    console.log("Click");
+    var menuDashboard = document.getElementById("menuDashboard");
+    var riceDashboard = document.getElementById("riceDashboard");
+    if (menuDashboard.style.display === "none") {
+      menuDashboard.style.display = "block";
+      riceDashboard.style.display = "none";
+    } else {
+      menuDashboard.style.display = "none";
+      riceDashboard.style.display = "block";
+    }
+  }
+  function showSesame() {
+    console.log("Click");
+    var menuDashboard = document.getElementById("menuDashboard");
+    var sesameDashboard = document.getElementById("sesameDashboard");
+    if (menuDashboard.style.display === "none") {
+      menuDashboard.style.display = "block";
+      sesameDashboard.style.display = "none";
+    } else {
+      menuDashboard.style.display = "none";
+      sesameDashboard.style.display = "block";
+    }
+  }
+  function showMarket() {
+    console.log("Click");
+    var menuDashboard = document.getElementById("menuDashboard");
+    var marketDashboard = document.getElementById("marketDashboard");
+    if (menuDashboard.style.display === "none") {
+      menuDashboard.style.display = "block";
+      marketDashboard.style.display = "none";
+    } else {
+      menuDashboard.style.display = "none";
+      marketDashboard.style.display = "block";
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% block extrastylesheet %}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+{% endblock extrastylesheet %}
+
+<h3>Rice Products Dashboard</h3>
+<a
+  href="{% url 'dashboard:dashboard' %}"
+  class="text-primary text-decoration-none"
+  ><i class="fas fa-arrow-left" aria-hidden="false"></i>&nbsp; Go back to
+  Dashboard Menu</a
+>
+
+<div class="card shadow mt-5" style="font-size: 12px">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm text-center" id="riceTable">
+        <thead>
+          <tr>
+            <th scope="col">Batch No.</th>
+            <th scope="col">Date Produced</th>
+            <th scope="col">Total  Available Volume</th>
+            <th scope="col">Amount Consumed</th>
+            <th scope="col">Date Consumed</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>22</td>
+            <td>August 30, 2021</td>
+            <td>120</td>
+            <td>60</td>
+            <td>August 30, 2021</td>
+            <td>
+              <span
+                type="button"
+                class="badge"
+                onclick="generate(value='Crunchies')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+              >
+                Select
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#riceTable").DataTable({
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      fixedHeader: true,
+    });
+  });
+</script>

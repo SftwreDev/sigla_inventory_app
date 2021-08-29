@@ -1,0 +1,16 @@
+{% extends 'template.html' %} {% block body %}
+<div class="container">
+  <div class="row">
+    <h3>Welcome to SIGLA Web App</h3>
+    <div id="getStarted">
+        {% include "menu/menu.html" %}
+    </div>
+
+    <div id="generateCode" style="display: none;">
+        {% include "generate_code/generate_code.html" %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

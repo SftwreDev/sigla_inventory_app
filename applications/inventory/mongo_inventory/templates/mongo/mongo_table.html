@@ -1,0 +1,172 @@
+{% extends 'template.html' %} {% block body %} {% block extrastylesheet %}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+{% endblock extrastylesheet %}
+
+<h3>Mongo Products Dashboard</h3>
+
+<a
+  href="{% url 'dashboard:dashboard' %}"
+  class="text-primary text-decoration-none"
+  ><i class="fas fa-arrow-left" aria-hidden="false"></i>&nbsp; Go back to
+  Dashboard Menu</a
+>
+<br />
+<div
+  class="card shadow mt-2"
+  style="max-width: 300px; background-color: #003871; color: white"
+>
+  <div class="card-body">
+    <h4 class="display-4">{{ total }}</h4>
+    <p style="font-size: 12px">
+      Total Available Volume of Mongo as of {{ date }}
+    </p>
+  </div>
+</div>
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-sm mt-4"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+  style="
+    background-color: #003871;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  "
+>
+  Add Mongo Batch
+</button>
+<div class="card shadow mt-3" style="font-size: 12px">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm text-center" id="mongoTable">
+        <thead>
+          <tr>
+            <th scope="col">Batch No.</th>
+            <th scope="col">Date Received</th>
+            <th scope="col">Total Available Volume</th>
+            <th scope="col">Amount Consumed</th>
+            <th scope="col">Date Consumed</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for list in mongo %}
+          <tr>
+            <td>{{ list.batch_no }}</td>
+            <td>{{ list.date_received }}</td>
+            <td>
+              {% if list.total_avail_volume < 0 %}
+                <div class="text-danger">{{ list.total_avail_volume }}</div>
+              {% else %}
+              <div>{{ list.total_avail_volume }}</div>
+              {% endif %}
+            </td>
+            <td>{{ list.amount_consumed|default_if_none:"-" }}</td>
+            <td>{{ list.date_consumed|default_if_none:"-" }}</td>
+            <td>
+              {% if list.amount_consumed != None and list.date_consumed != None %}
+              <span
+                type="button"
+                class="badge disabled"
+                onclick="getMongoData(
+                  batch_no='{{ list.batch_no }}', 
+                  date_received='{{ list.date_received }}' , 
+                  total_avail_volume='{{ list.total_avail_volume }}',
+                  amount_consumed='{{ list.amount_consumed}}',
+                  date_consumed='{{ list.date_consumed }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                title="You already update this data"
+              >
+                Update
+              </span>
+              {% else %}
+              <span
+                type="button"
+                class="badge"
+                onclick="getMongoData(
+                  mongo_id='{{ list.mongo_id }}',
+                  batch_no='{{ list.batch_no }}', 
+                  date_received='{{ list.date_received }}' , 
+                  total_avail_volume='{{ list.total_avail_volume }}',
+                  amount_consumed='{{ list.amount_consumed}}',
+                  date_consumed='{{list.date_consumed }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#updateMongo"
+              >
+                Update
+              </span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+{% include "modal/add_mongo.html" %} {% include "modal/update_mongo.html" %}
+
+<script>
+  function getMongoData(
+    mongo_id,
+    batch_no,
+    date_received,
+    total_avail_volume,
+    amount_consumed,
+    date_consumed
+  ) {
+    console.log(mongo_id);
+    document.getElementById("update_batch_no").value = batch_no;
+    document.getElementById("update_date_received").value = date_received;
+    document.getElementById("update_total_avail_volume").value =
+      total_avail_volume;
+    document.getElementById("mongo_id").value = mongo_id;
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#mongoTable").DataTable({
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      fixedHeader: true,
+    });
+  });
+</script>
+
+{% endblock %}
