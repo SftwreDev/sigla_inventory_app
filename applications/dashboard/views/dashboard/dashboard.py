@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from applications.inventory.mongo_inventory.views.mongo_list import *
+from applications.mongo_inventory.views.mongo_list import *
 
 def dashboard_page(request):
     """

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 import datetime
 from dateutil.parser import parse
-from applications.inventory.mongo_inventory.models import *
+from applications.mongo_inventory.models import *
 from applications.base_settings.uuid_generator import *
 
 def update_mongo_inventory(request):

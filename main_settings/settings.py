@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'applications.authentication',
-    'applications.inventory.mongo_inventory',
+    'applications.mongo_inventory',
     'applications.base_settings',
     'applications.dashboard',
 

@@ -1,6 +1,5 @@
 from django.shortcuts import redirect, render
-
-from applications.inventory.mongo_inventory.models import *
+from applications.mongo_inventory.models import *
 
 
 def add_mongo_inventory(request):

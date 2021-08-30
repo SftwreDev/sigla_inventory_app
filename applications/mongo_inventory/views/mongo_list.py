@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.db.models import Sum
 import datetime
-from applications.inventory.mongo_inventory.models import *
+from applications.mongo_inventory.models import *
 
 
 def mongo_list(request):
