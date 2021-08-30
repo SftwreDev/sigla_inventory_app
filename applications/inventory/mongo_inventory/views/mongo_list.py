@@ -12,8 +12,10 @@ def mongo_list(request):
     
     for total_avail in total_avail_volume:
         total = total_avail.total_avail_volume
-
-    total=total
+    try:
+        total=total
+    except:
+        total = 0
     
     
     context = {
