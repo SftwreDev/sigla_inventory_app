@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--34uz%&4)m=l0!6yyapf6(=++o85ywxj4hsj!nt2ip(gybsg6-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ "*" ]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'applications.authentication',
-    'applications.mongo_inventory',
+    'applications.inventory.mongo_inventory',
     'applications.base_settings',
     'applications.dashboard',
 

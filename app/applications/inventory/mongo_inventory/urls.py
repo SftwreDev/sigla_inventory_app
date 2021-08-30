@@ -1,8 +1,8 @@
 from django.urls import path
 
-from applications.mongo_inventory.views.mongo_create import *
-from applications.mongo_inventory.views.mongo_list import *
-from applications.mongo_inventory.views.mongo_update import *
+from applications.inventory.mongo_inventory.views.mongo_create import *
+from applications.inventory.mongo_inventory.views.mongo_list import *
+from applications.inventory.mongo_inventory.views.mongo_update import *
 
 app_name = "mongo"
 
