@@ -6,20 +6,20 @@ from applications.inventory.mongo_inventory.models import *
 
 def mongo_list(request):
     template_name = "mongo/mongo_table.html"
-    batch_mongo = MongoInventory.objects.all()
+    mongo_inventory = MongoInventory.objects.all()
+    mongo_consumed = MongoConsumed.objects.all()
     date = datetime.date.today()
-    total_avail_volume = MongoInventory.objects.filter(amount_consumed=None, date_consumed=None)
     
-    for total_avail in total_avail_volume:
-        total = total_avail.total_avail_volume
     try:
-        total=total
+        total_avail_volume = MongoInventory.objects.all().order_by("-id")[0]
+        print(total_avail_volume)
+        total = total_avail_volume.total_avail_volume
     except:
         total = 0
     
     
     context = {
-        "mongo": batch_mongo,
+        "mongo": mongo_inventory,
         "total": total,
         "date": date
     }

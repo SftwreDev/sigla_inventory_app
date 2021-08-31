@@ -22,6 +22,16 @@
   Dashboard Menu</a
 >
 <br />
+{% if total == 0 %}
+  <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+    <div>
+      There are no available mongo left in the inventory. Click <u
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop">here</u>  to add
+    </div>
+  </div>
+{% endif %}
 <div
   class="card shadow mt-2"
   style="max-width: 300px; background-color: #003871; color: white"
@@ -67,26 +77,31 @@
           <tr>
             <td>{{ list.batch_no }}</td>
             <td>{{ list.date_received }}</td>
+            {% for consumed in list.mongo_inventory.all %}
             <td>
-              {% if list.total_avail_volume < 0 %}
-                <div class="text-danger">{{ list.total_avail_volume }}</div>
+              {% if consumed.total_avail_volume < 0 %}
+                <div class="text-danger">{{ consumed.total_avail_volume }}</div>
               {% else %}
-              <div>{{ list.total_avail_volume }}</div>
+              <div>{{ consumed.total_avail_volume }}</div>
               {% endif %}
             </td>
-            <td>{{ list.amount_consumed|default_if_none:"-" }}</td>
-            <td>{{ list.date_consumed|default_if_none:"-" }}</td>
+            
+            
+            <td>{{ consumed.amount_consumed|default_if_none:"-" }}</td>
+            <td>{{ consumed.date_consumed|default_if_none:"-" }}</td>
             <td>
-              {% if list.amount_consumed != None and list.date_consumed != None %}
+              {% if consumed.amount_consumed != None and consumed.date_consumed != None %}
               <span
                 type="button"
                 class="badge disabled"
                 onclick="getMongoData(
+                  id='{{ list.mongo_id }}',
+                  mongo_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
-                  total_avail_volume='{{ list.total_avail_volume }}',
-                  amount_consumed='{{ list.amount_consumed}}',
-                  date_consumed='{{ list.date_consumed }}')"
+                  total_avail_volume='{{ consumed.total_avail_volume }}',
+                  amount_consumed='{{ consumed.amount_consumed}}',
+                  date_consumed='{{ consumed.date_consumed }}')"
                 style="
                   background-color: #003871;
                   color: white;
@@ -97,14 +112,15 @@
                 data-bs-placement="right"
                 title="You already update this data"
               >
-                Update
+                Done
               </span>
               {% else %}
               <span
                 type="button"
                 class="badge"
                 onclick="getMongoData(
-                  mongo_id='{{ list.mongo_id }}',
+                  id='{{ list.mongo_id }}',
+                  mongo_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
                   total_avail_volume='{{ list.total_avail_volume }}',
@@ -123,6 +139,62 @@
               </span>
               {% endif %}
             </td>
+            {% empty %}
+            <td> {{ total }} </td>
+            <td> - </td>
+            <td> - </td>
+            
+            <td>
+              {% if consumed.amount_consumed != None and consumed.date_consumed != None %}
+              <span
+                type="button"
+                class="badge disabled"
+                onclick="getMongoData(
+                  id='{{ list.mongo_id }}',
+                  mongo_id='{{ list.id }}',
+                  batch_no='{{ list.batch_no }}', 
+                  date_received='{{ list.date_received }}' , 
+                  total_avail_volume='{{ consumed.total_avail_volume }}',
+                  amount_consumed='{{ consumed.amount_consumed}}',
+                  date_consumed='{{ consumed.date_consumed }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                title="You already update this data"
+              >
+                Done
+              </span>
+              {% else %}
+              <span
+                type="button"
+                class="badge"
+                onclick="getMongoData(
+                  id='{{ list.mongo_id }}',
+                  mongo_id='{{ list.id }}',
+                  batch_no='{{ list.batch_no }}', 
+                  date_received='{{ list.date_received }}' , 
+                  total_avail_volume='{{ list.total_avail_volume }}',
+                  amount_consumed='{{ list.amount_consumed}}',
+                  date_consumed='{{list.date_consumed }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#updateMongo"
+              >
+                Update
+              </span>
+              {% endif %}
+            </td>
+            {% endfor %}
           </tr>
           {% endfor %}
         </tbody>
@@ -136,6 +208,7 @@
 
 <script>
   function getMongoData(
+    id,
     mongo_id,
     batch_no,
     date_received,
@@ -143,12 +216,13 @@
     amount_consumed,
     date_consumed
   ) {
-    console.log(mongo_id);
+    console.log(id);
     document.getElementById("update_batch_no").value = batch_no;
     document.getElementById("update_date_received").value = date_received;
     document.getElementById("update_total_avail_volume").value =
       total_avail_volume;
     document.getElementById("mongo_id").value = mongo_id;
+    document.getElementById("inventory_id").value = id;
   }
 </script>
 
