@@ -13,7 +13,7 @@
 />
 {% endblock extrastylesheet %}
 
-<h3>Mongo Products Inventory</h3>
+<h3>Extrudates Inventory</h3>
 
 <a
   href="{% url 'dashboard:dashboard' %}"
@@ -26,23 +26,12 @@
   <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
     <div>
-      There are no available mongo left in the inventory. Click <u
+      There are no available extrudate left in the inventory. Click <u
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop">here</u>  to add
     </div>
   </div>
 {% endif %}
-<div
-  class="card shadow mt-2"
-  style="max-width: 300px; background-color: #003871; color: white"
->
-  <div class="card-body">
-    <h4 class="display-4">{{ total }}</h4>
-    <p style="font-size: 12px">
-      Total Available Volume of Mongo as of {{ date }}
-    </p>
-  </div>
-</div>
 <!-- Button trigger modal -->
 <button
   type="button"
@@ -56,7 +45,7 @@
     font-weight: bold;
   "
 >
-  Add Mongo Batch
+  Add Extrudate
 </button>
 <div class="card shadow mt-3" style="font-size: 12px">
   <div class="card-body">
@@ -65,10 +54,11 @@
         <thead>
           <tr>
             <th scope="col">Batch No.</th>
-            <th scope="col">Date Received</th>
-            <th scope="col">Total Available Volume</th>
-            <th scope="col">Amount Consumed</th>
-            <th scope="col">Date Consumed</th>
+            <th scope="col">Date Produced</th>
+            <th scope="col">Total Volume (kg.) </th>
+            <th scope="col">Batch No. of Mongo</th>
+            <th scope="col">Batch No. of Rice</th>
+            <th scope="col">Batch No. of Sesame</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>

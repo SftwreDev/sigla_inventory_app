@@ -1,15 +1,14 @@
 from django.shortcuts import redirect, render
 from django.db.models import Sum
 import datetime
-from applications.inventory.mongo_inventory.models import *
+from applications.inventory.rice_inventory.models import *
 
-
-def mongo_list(request):
-    template_name = "mongo/mongo_table.html"
-    mongo_inventory = MongoInventory.objects.all()
-    mongo_consumed = MongoConsumed.objects.all()
+def rice_list(request):
+    template_name = "rice/rice_table.html"
+    rice_inventory = RiceInventory.objects.all()
+    rice_consumed = RiceConsumed.objects.all()
     date = datetime.date.today()
-    total_avail_volume = MongoInventory.objects.aggregate(Sum('total_avail_volume'))
+    total_avail_volume = RiceInventory.objects.aggregate(Sum('total_avail_volume'))
     total = total_avail_volume["total_avail_volume__sum"]
     if total != None:
         total = total
@@ -18,7 +17,7 @@ def mongo_list(request):
     
     
     context = {
-        "mongo": mongo_inventory,
+        "rice": rice_inventory,
         "total": total,
         "date": date
     }

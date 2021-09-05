@@ -13,7 +13,7 @@
 />
 {% endblock extrastylesheet %}
 
-<h3>Mongo Products Inventory</h3>
+<h3>Sesame Products Inventory</h3>
 
 <a
   href="{% url 'dashboard:dashboard' %}"
@@ -26,7 +26,7 @@
   <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
     <div>
-      There are no available mongo left in the inventory. Click <u
+      There are no available sesame left in the inventory. Click <u
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop">here</u>  to add
     </div>
@@ -39,7 +39,7 @@
   <div class="card-body">
     <h4 class="display-4">{{ total }}</h4>
     <p style="font-size: 12px">
-      Total Available Volume of Mongo as of {{ date }}
+      Total Available Volume of Sesame as of {{ date }}
     </p>
   </div>
 </div>
@@ -56,12 +56,12 @@
     font-weight: bold;
   "
 >
-  Add Mongo Batch
+  Add Sesame Batch
 </button>
 <div class="card shadow mt-3" style="font-size: 12px">
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-sm text-center" id="mongoTable">
+      <table class="table table-sm text-center" id="sesameTable">
         <thead>
           <tr>
             <th scope="col">Batch No.</th>
@@ -73,11 +73,11 @@
           </tr>
         </thead>
         <tbody>
-          {% for list in mongo %}
+          {% for list in sesame %}
           <tr>
             <td>{{ list.batch_no }}</td>
             <td>{{ list.date_received }}</td>
-            {% for consumed in list.mongo_inventory.all %}
+            {% for consumed in list.sesame_inventory.all %}
             <td>
               {% if consumed.total_avail_volume < 0 %}
                 <div class="text-danger">{{ consumed.total_avail_volume }}</div>
@@ -94,8 +94,8 @@
               <span
                 type="button"
                 class="badge disabled"
-                onclick="getMongoData(
-                  id='{{ list.mongo_id }}',
+                onclick="getRiceData(
+                  id='{{ list.rice_id }}',
                   mongo_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
@@ -118,8 +118,8 @@
               <span
                 type="button"
                 class="badge"
-                onclick="getMongoData(
-                  id='{{ list.mongo_id }}',
+                onclick="getSesameData(
+                  id='{{ list.sesame_id }}',
                   mongo_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
@@ -133,7 +133,7 @@
                   font-weight: bold;
                 "
                 data-bs-toggle="modal"
-                data-bs-target="#updateMongo"
+                data-bs-target="#updateRice"
               >
                 Update
               </span>
@@ -149,8 +149,8 @@
               <span
                 type="button"
                 class="badge disabled"
-                onclick="getMongoData(
-                  id='{{ list.mongo_id }}',
+                onclick="getSesameData(
+                  id='{{ list.sesame_id }}',
                   mongo_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
@@ -173,8 +173,8 @@
               <span
                 type="button"
                 class="badge"
-                onclick="getMongoData(
-                  id='{{ list.mongo_id }}',
+                onclick="getSesameData(
+                  id='{{ list.sesame_id }}',
                   mongo_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
@@ -188,7 +188,7 @@
                   font-weight: bold;
                 "
                 data-bs-toggle="modal"
-                data-bs-target="#updateMongo"
+                data-bs-target="#updateRice"
               >
                 Update
               </span>
@@ -204,12 +204,13 @@
 </div>
 
 <!-- Modal -->
-{% include "modal/add_mongo.html" %} {% include "modal/update_mongo.html" %}
+{% include "modal/add_sesame.html" %} 
+{% include "modal/update_sesame.html" %}
 
 <script>
-  function getMongoData(
+  function getSesameData(
     id,
-    mongo_id,
+    sesame_id,
     batch_no,
     date_received,
     total_avail_volume,
@@ -221,7 +222,7 @@
     document.getElementById("update_date_received").value = date_received;
     document.getElementById("update_total_avail_volume").value =
       total_avail_volume;
-    document.getElementById("mongo_id").value = mongo_id;
+    document.getElementById("sesame_id").value = sesame_id;
     document.getElementById("inventory_id").value = id;
   }
 </script>
@@ -233,7 +234,7 @@
 
 <script>
   $(document).ready(function () {
-    $("#mongoTable").DataTable({
+    $("#sesameTable").DataTable({
       lengthMenu: [
         [5, 10, 25, 50, -1],
         [5, 10, 25, 50, "All"],

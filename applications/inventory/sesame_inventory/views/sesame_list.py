@@ -1,15 +1,14 @@
 from django.shortcuts import redirect, render
 from django.db.models import Sum
 import datetime
-from applications.inventory.mongo_inventory.models import *
+from applications.inventory.sesame_inventory.models import *
 
-
-def mongo_list(request):
-    template_name = "mongo/mongo_table.html"
-    mongo_inventory = MongoInventory.objects.all()
-    mongo_consumed = MongoConsumed.objects.all()
+def sesame_list(request):
+    template_name = "sesame/sesame_table.html"
+    sesame_inventory = SesameInventory.objects.all()
+    sesame_consumed = SesameConsumed.objects.all()
     date = datetime.date.today()
-    total_avail_volume = MongoInventory.objects.aggregate(Sum('total_avail_volume'))
+    total_avail_volume = SesameInventory.objects.aggregate(Sum('total_avail_volume'))
     total = total_avail_volume["total_avail_volume__sum"]
     if total != None:
         total = total
@@ -18,7 +17,7 @@ def mongo_list(request):
     
     
     context = {
-        "mongo": mongo_inventory,
+        "sesame": sesame_inventory,
         "total": total,
         "date": date
     }

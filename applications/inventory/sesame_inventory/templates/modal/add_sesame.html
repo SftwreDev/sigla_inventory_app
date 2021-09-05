@@ -1,0 +1,71 @@
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Sesame</h5>
+        <a
+          href="{% url 'sesame:sesame_list' %}"
+          class="btn-close"
+          aria-label="Close"
+        ></a>
+      </div>
+      <form action="/app/v1/add-sesame" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="batch_no" class="form-label"
+              >Batch No.  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="batch_no"
+              name="batch_no"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="dateReceived" class="form-label"
+              >Date Received :
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              id="dateReceived"
+              id="date_received"
+              name="date_received"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="totalAvailableVolume" class="form-label"
+              >Total Available Volume :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="totalAvailableVolume"
+              id="total_avail_volume"
+              name="total_avail_volume"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a
+            href="{% url 'sesame:sesame_list' %}"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

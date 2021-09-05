@@ -1,6 +1,6 @@
 <div
   class="modal fade"
-  id="updateMongo"
+  id="updateRice"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
   tabindex="-1"
@@ -10,14 +10,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Update Mongo Batch</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Update Rice Batch</h5>
         <a
-          href="{% url 'mongo:mongo_list' %}"
+          href="{% url 'rice:rice_list' %}"
           class="btn-close"
           aria-label="Close"
         ></a>
       </div>
-      <form action="/app/v1/update-mongo" method="post">
+      <form action="/app/v1/update-rice" method="post">
         {% csrf_token %}
         <div class="modal-body">
           <div class="mb-3" style="display: none;">
@@ -27,8 +27,8 @@
             <input
               type="number"
               class="form-control"
-              id="mongo_id"
-              name="mongo_id"
+              id="rice_id"
+              name="rice_id"
               readonly
             />
             <input
@@ -101,7 +101,7 @@
         </div>
         <div class="modal-footer">
           <a
-            href="{% url 'mongo:mongo_list' %}"
+            href="{% url 'rice:rice_list' %}"
             class="btn btn-secondary"
           >
             Cancel

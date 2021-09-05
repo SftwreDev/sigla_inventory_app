@@ -31,40 +31,16 @@
 
   }
   function showRice() {
-    console.log("Click");
-    var menuDashboard = document.getElementById("menuDashboard");
-    var riceDashboard = document.getElementById("riceDashboard");
-    if (menuDashboard.style.display === "none") {
-      menuDashboard.style.display = "block";
-      riceDashboard.style.display = "none";
-    } else {
-      menuDashboard.style.display = "none";
-      riceDashboard.style.display = "block";
-    }
+     var riceInventory  = "{% url 'rice:rice_list' %}";
+    document.location.href = riceInventory;
   }
   function showSesame() {
-    console.log("Click");
-    var menuDashboard = document.getElementById("menuDashboard");
-    var sesameDashboard = document.getElementById("sesameDashboard");
-    if (menuDashboard.style.display === "none") {
-      menuDashboard.style.display = "block";
-      sesameDashboard.style.display = "none";
-    } else {
-      menuDashboard.style.display = "none";
-      sesameDashboard.style.display = "block";
-    }
+    var sesameInventory  = "{% url 'sesame:sesame_list' %}";
+    document.location.href = sesameInventory;
   }
   function showMarket() {
-    console.log("Click");
-    var menuDashboard = document.getElementById("menuDashboard");
-    var marketDashboard = document.getElementById("marketDashboard");
-    if (menuDashboard.style.display === "none") {
-      menuDashboard.style.display = "block";
-      marketDashboard.style.display = "none";
-    } else {
-      menuDashboard.style.display = "none";
-      marketDashboard.style.display = "block";
-    }
+    var extrudateInventory  = "{% url 'extrudate:extrudate_list' %}";
+    document.location.href = extrudateInventory;
   }
 </script>
 {% endblock %}
