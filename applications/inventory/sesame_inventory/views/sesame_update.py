@@ -16,24 +16,25 @@ def update_sesame_inventory(request):
                 date_received = request.POST['update_date_received']
                 date_consumed = request.POST['update_date_consumed']
                 amount_consumed = request.POST['update_amount_consumed']
+                total_volume = request.POST['update_total_avail_volume']
                 parse_date = parse(date_received)
                 received_date = datetime.datetime.strftime(parse_date, '%Y-%m-%d')
-                
+                print("ID >>>", sesame_id)
 
                 total_avail_volume = SesameInventory.objects.all().order_by("-id")[0]
                 volume_left = total_avail_volume.total_avail_volume
-                latest_vol = volume_left - int(amount_consumed)
+                latest_vol = int(total_volume) - int(amount_consumed)
                 
                 update_object = SesameConsumed.objects.filter(inventory_id=sesame_id).create(
                     sesame_id=generate_id(),
                     inventory_id_id=sesame_id,
                     date_consumed=date_consumed,
                     amount_consumed=amount_consumed,
-                    total_avail_volume=volume_left
+                    total_avail_volume=int(total_volume)
                 )
-
+                print(id)
                 if latest_vol != 0:
-                    update_inventory = SesameInventory.objects.filter(sesame_id=id).update(
+                    update_inventory = SesameInventory.objects.filter(id=sesame_id).update(
                         total_avail_volume=0
                     )
                     create_object = SesameInventory.objects.create(
@@ -43,7 +44,7 @@ def update_sesame_inventory(request):
                         total_avail_volume=latest_vol
                     )
                 else:
-                    update_inventory = SesameInventory.objects.filter(sesame_id=id).update(
+                    update_inventory = SesameInventory.objects.filter(id=sesame_id).update(
                         total_avail_volume=0
                     )
    

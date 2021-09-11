@@ -1,0 +1,132 @@
+{% extends 'template.html' %} {% block body %} {% block extrastylesheet %}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+{% endblock extrastylesheet %}
+
+<h3>Batch Fried/Packed Inventory</h3>
+
+<a
+  href="{% url 'dashboard:dashboard' %}"
+  class="text-primary text-decoration-none"
+  ><i class="fas fa-arrow-left" aria-hidden="false"></i>&nbsp; Go back to
+  Inventory Menu</a
+>
+<br />
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-sm mt-4"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+  style="
+    background-color: #003871;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  "
+>
+  Add Fried/Packed
+</button>
+<div class="card shadow mt-3" style="font-size: 12px">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm text-center" id="mongoTable">
+        <thead>
+          <tr>
+            <th scope="col">Batch No.</th>
+            <th scope="col">Date Fried</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for list in fried %}
+          <tr>
+            <td>{{ list.batch_no|default_if_none:"-" }}</td>
+            <td>{{ list.date_fried|default_if_none:"-" }}</td>
+            <td>
+              {% comment %} {% if consumed.amount_consumed != None and consumed.date_consumed != None %} {% endcomment %}
+              <span
+                type="button"
+                class="badge"
+                onclick="getFriedData(
+                  id='{{ list.id }}',
+                  batch_no='{{ list.batch_no }}', 
+                  date_fried='{{ list.date_fried }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#updateFried"
+              >
+                Update
+              </span>
+              {% comment %} {% endif %} {% endcomment %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+{% include "modal/add_fried.html" %} {% include "modal/update_fried.html" %}
+
+<script>
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+  function getFriedData(
+    id,
+    batch_no,
+    date_fried
+  ) {
+    document.getElementById("update_batch_no").value = batch_no;
+    document.getElementById("update_date_fried").value = formatDate(date_fried);
+    document.getElementById("fried_id").value = id;
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#mongoTable").DataTable({
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      fixedHeader: true,
+    });
+  });
+</script>
+
+{% endblock %}

@@ -2,25 +2,22 @@
 
 <style>
   .card-menu:hover {
-    background-color: #1b58fd;
+    {% comment %} background-image: linear-gradient( 109.6deg,  rgba(209,0,116,1) 11.2%, rgba(110,44,107,1) 91.1% ); {% endcomment %}
     color: white;
+    background-color: #1b58fd
   }
+
+  .card-menu {
+    border-radius: 5px 40px 5px;
+    width: 400px;
+    font-size: 14px;
+    
+  }
+
 </style>
 <div class="container">
   <div class="row">
     <div id="menuDashboard">{% include 'menu/dashboard_menu.html' %}</div>
-
-    <div id="riceDashboard" style="display: none">
-      {% include 'dashboard/rice/rice_table.html' %}
-    </div>
-
-    <div id="sesameDashboard" style="display: none">
-      {% include 'dashboard/sesame/sesame_table.html' %}
-    </div>
-
-    <div id="marketDashboard" style="display: none">
-      {% include 'dashboard/market/market_table.html' %}
-    </div>
   </div>
 </div>
 <script>
@@ -38,9 +35,21 @@
     var sesameInventory  = "{% url 'sesame:sesame_list' %}";
     document.location.href = sesameInventory;
   }
-  function showMarket() {
+  function showExtrudate() {
     var extrudateInventory  = "{% url 'extrudate:extrudate_list' %}";
     document.location.href = extrudateInventory;
+  }
+  function showMarket() {
+    var extrudateInventory  = "{% url 'market:market_list' %}";
+    document.location.href = extrudateInventory;
+  }
+  function showFried() {
+    var friedInventory  = "{% url 'fried:fried_list' %}";
+    document.location.href = friedInventory;
+  }
+  function showFlavours() {
+    var flavouringsInventory  = "{% url 'flavourings:flavourings_list' %}";
+    document.location.href = flavouringsInventory;
   }
 </script>
 {% endblock %}

@@ -15,4 +15,7 @@ urlpatterns = [
     path('app/v1/', include('applications.inventory.rice_inventory.urls')),
     path('app/v1/', include('applications.inventory.sesame_inventory.urls')),
     path('app/v1/', include('applications.inventory.extrudate_inventory.urls')),
+    path('app/v1/', include('applications.inventory.market_inventory.urls')),
+    path('app/v1/', include('applications.inventory.fried_inventory.urls')),
+    path('app/v1/', include('applications.inventory.flavourings_inventory.urls')),
 ]

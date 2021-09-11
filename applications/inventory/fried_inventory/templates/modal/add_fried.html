@@ -1,0 +1,59 @@
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Batch Fried/Packed</h5>
+        <a
+          href="{% url 'fried:fried_list' %}"
+          class="btn-close"
+          aria-label="Close"
+        ></a>
+      </div>
+      <form action="/app/v1/add-fried-packed" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="batch_no" class="form-label"
+              >Batch No.  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="batch_no"
+              name="batch_no"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="date_fried" class="form-label"
+              >Date Fried/Packed :
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              id="date_fried"
+              name="date_fried"
+            />
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <a
+            href="{% url 'fried:fried_list' %}"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

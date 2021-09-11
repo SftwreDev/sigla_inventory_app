@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'applications.inventory.rice_inventory',
     'applications.inventory.sesame_inventory',
     'applications.inventory.extrudate_inventory',
+    'applications.inventory.market_inventory',
+    'applications.inventory.fried_inventory',
+    'applications.inventory.flavourings_inventory',
 
 ]
 
@@ -140,4 +143,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = "authentication.User"
-LOGIN_REDIRECT_URL = "app/v1/accounts/login/"
+LOGIN_REDIRECT_URL = "/app/v1/accounts/login/"
+LOGOUT_REDIRECT_URL = "/app/v1/accounts/login/"
+LOGIN_URL = "/app/v1/accounts/login"

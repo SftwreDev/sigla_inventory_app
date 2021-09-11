@@ -1,0 +1,80 @@
+<div
+  class="modal fade"
+  id="updateMarket"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Update Market</h5>
+        <a
+          href="{% url 'market:market_list' %}"
+          class="btn-close"
+          aria-label="Close"
+        ></a>
+      </div>
+      <form action="/app/v1/update-market" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3" style="display: none">
+            <label for="market_id" class="form-label"
+              >Customer Name  :
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="market_id"
+              name="market_id"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_cust_name" class="form-label"
+              >Customer Name  :
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="update_cust_name"
+              name="update_cust_name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_lot_code" class="form-label"
+              >Lot Code : 
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="update_lot_code"
+              name="update_lot_code"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_date_delivered" class="form-label"
+              >Date Delivered :
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              id="update_date_delivered"
+              name="update_date_delivered"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a
+            href="{% url 'market:market_list' %}"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

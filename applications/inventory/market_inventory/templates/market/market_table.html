@@ -1,0 +1,140 @@
+{% extends 'template.html' %} {% block body %} {% block extrastylesheet %}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+{% endblock extrastylesheet %}
+
+<h3>Market Inventory</h3>
+
+<a
+  href="{% url 'dashboard:dashboard' %}"
+  class="text-primary text-decoration-none"
+  ><i class="fas fa-arrow-left" aria-hidden="false"></i>&nbsp; Go back to
+  Inventory Menu</a
+>
+<br />
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-sm mt-4"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+  style="
+    background-color: #003871;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  "
+>
+  Add Market
+</button>
+<div class="card shadow mt-3" style="font-size: 12px">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm text-center" id="mongoTable">
+        <thead>
+          <tr>
+            <th scope="col">Market ID</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Lot Code</th>
+            <th scope="col">Date Delivered</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for list in market %}
+          <tr>
+            <td>{{ list.market_id|default_if_none:"-" }}</td>
+            <td>{{ list.cust_name|default_if_none:"-" }}</td>
+            <td>{{ list.lot_code|default_if_none:"-" }}</td>    
+            <td>{{ list.date_delivered|default_if_none:"-" }}</td>
+            <td>
+              {% comment %} {% if consumed.amount_consumed != None and consumed.date_consumed != None %} {% endcomment %}
+              <span
+                type="button"
+                class="badge"
+                onclick="getMarketData(
+                  id='{{ list.id }}',
+                  cust_name='{{ list.cust_name }}', 
+                  lot_code='{{ list.lot_code }}' , 
+                  date_delivered='{{ list.date_delivered }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#updateMarket"
+              >
+                Update
+              </span>
+              {% comment %} {% endif %} {% endcomment %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+{% include "modal/add_market.html" %} {% include "modal/update_market.html" %}
+
+<script>
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+  function getMarketData(
+    id,
+    cust_name,
+    lot_code,
+    date_delivered
+  ) {
+    document.getElementById("market_id").value = id;
+    document.getElementById("update_cust_name").value = cust_name;
+    document.getElementById("update_lot_code").value = lot_code;
+    document.getElementById("update_date_delivered").value = formatDate(date_delivered);
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#mongoTable").DataTable({
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      fixedHeader: true,
+    });
+  });
+</script>
+
+{% endblock %}

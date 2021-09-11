@@ -77,7 +77,7 @@
           <tr>
             <td>{{ list.batch_no }}</td>
             <td>{{ list.date_received }}</td>
-            {% for consumed in list.rice_inventory.all %}
+            {% for consumed in list.rice_inventory.all %}   
             <td>
               {% if consumed.total_avail_volume < 0 %}
                 <div class="text-danger">{{ consumed.total_avail_volume }}</div>
@@ -85,7 +85,6 @@
               <div>{{ consumed.total_avail_volume }}</div>
               {% endif %}
             </td>
-            
             
             <td>{{ consumed.amount_consumed|default_if_none:"-" }}</td>
             <td>{{ consumed.date_consumed|default_if_none:"-" }}</td>
@@ -139,8 +138,8 @@
               </span>
               {% endif %}
             </td>
-            {% empty %}
-            <td> {{ total }} </td>
+             {% empty %}
+            <td> {{ list.total_avail_volume }} </td>
             <td> - </td>
             <td> - </td>
             

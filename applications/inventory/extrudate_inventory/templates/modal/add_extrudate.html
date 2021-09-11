@@ -1,0 +1,122 @@
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Extrudate</h5>
+        <a
+          href="{% url 'extrudate:extrudate_list' %}"
+          class="btn-close"
+          aria-label="Close"
+        ></a>
+      </div>
+      <form action="/app/v1/add-extrudate" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="batch_no" class="form-label"
+              >Batch No.  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="batch_no"
+              name="batch_no"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="dateProduced" class="form-label"
+              >Date Produced :
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              id="dateProduced"
+              id="date_produced"
+              name="date_produced"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="totalVolume" class="form-label"
+              >Total Volume (kg) :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="totalVolume"
+              id="total_volume"
+              name="total_volume"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="batch_no_mongo" class="form-label"
+              >Batch No. of Mongo :
+            </label>
+            {% comment %} <input
+              type="number"
+              class="form-control"
+              id="batch_no_mongo"
+              name="batch_no_mongo"
+            /> {% endcomment %}
+              <select class="form-select" name="batch_no_mongo" id="batch_no_mongo">
+                <option selected>Select Mongo Batch No. </option>
+              {% for mongo in mongo %}
+                <option value="{{mongo}}">{{mongo}}</option>
+              {% endfor %}
+              </select>
+          </div>
+          <div class="mb-3">
+            <label for="batch_no_rice" class="form-label"
+              >Batch No. of Rice :
+            </label>
+            {% comment %} <input
+              type="number"
+              class="form-control"
+              id="batch_no_rice"
+              name="batch_no_rice"
+            /> {% endcomment %}
+              <select class="form-select" name="batch_no_rice" id="batch_no_rice">
+                <option selected>Select Rice Batch No. </option>
+              {% for rice in rice %}
+                <option value="{{rice}}">{{rice}}</option>
+              {% endfor %}
+              </select>
+          </div>
+          <div class="mb-3">
+            <label for="batch_no_sesame" class="form-label"
+              >Batch No. of Sesame :
+            </label>
+            {% comment %} <input
+              type="number"
+              class="form-control"
+              id="batch_no_sesame"
+              name="batch_no_sesame"
+            /> {% endcomment %}
+            <select class="form-select" name="batch_no_sesame" id="batch_no_sesame">
+                <option selected>Select Sesame Batch No. </option>
+              {% for sesame in sesame %}
+                <option value="{{sesame}}">{{sesame}}</option>
+              {% endfor %}
+              </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a
+            href="{% url 'extrudate:extrudate_list' %}"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div
+  class="modal fade"
+  id="updateFried"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Update Batch Fried/Packed</h5>
+        <a
+          href="{% url 'fried:fried_list' %}"
+          class="btn-close"
+          aria-label="Close"
+        ></a>
+      </div>
+      <form action="/app/v1/update-fried-packed" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="mb-3" style="display: none;">
+            <label for="fried_id" class="form-label"
+              >ID  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="fried_id"
+              name="fried_id"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_batch_no" class="form-label"
+              >Batch No. To Update  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="update_batch_no"
+              name="update_batch_no"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_date_fried" class="form-label"
+              >Date Fried :
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              id="update_date_fried"
+              name="update_date_fried"
+            />
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <a
+            href="{% url 'fried:fried_list' %}"
+            class="btn btn-secondary"
+          >
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

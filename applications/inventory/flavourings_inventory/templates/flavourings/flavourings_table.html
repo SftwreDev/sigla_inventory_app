@@ -1,0 +1,255 @@
+{% extends 'template.html' %} {% block body %} {% block extrastylesheet %}
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css"
+  rel="stylesheet"
+/>
+{% endblock extrastylesheet %}
+
+<h3>Flavourings Products Inventory</h3>
+
+<a
+  href="{% url 'dashboard:dashboard' %}"
+  class="text-primary text-decoration-none"
+  ><i class="fas fa-arrow-left" aria-hidden="false"></i>&nbsp; Go back to
+  Inventory Menu</a
+>
+<br />
+{% if total == 0 %}
+  <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+    <div>
+      There are no available flavourings left in the inventory. Click <u
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop">here</u>  to add
+    </div>
+  </div>
+{% endif %}
+<div
+  class="card shadow mt-2"
+  style="max-width: 300px; background-color: #003871; color: white"
+>
+  <div class="card-body">
+    <h4 class="display-4">{{ total }}</h4>
+    <p style="font-size: 12px">
+      Total Available Volume of Flavourings as of {{ date }}
+    </p>
+  </div>
+</div>
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-sm mt-4"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+  style="
+    background-color: #003871;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  "
+>
+  Add Flavourings Batch
+</button>
+<div class="card shadow mt-3" style="font-size: 12px">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm text-center" id="mongoTable">
+        <thead>
+          <tr>
+            <th scope="col">Batch No.</th>
+            <th scope="col">Flavour</th>
+            <th scope="col">Date Received</th>
+            <th scope="col">Total Available Volume</th>
+            <th scope="col">Amount Consumed</th>
+            <th scope="col">Date Consumed</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for list in flavourings %}
+          <tr>
+            <td>{{ list.batch_no }}</td>
+            <td>{{ list.flavourings }}</td>
+            <td>{{ list.date_received }}</td>
+            {% for consumed in list.flavourings_inventory.all %}
+            <td>
+              {% if consumed.total_avail_volume < 0 %}
+                <div class="text-danger">{{ consumed.total_avail_volume }}</div>
+              {% else %}
+              <div>{{ consumed.total_avail_volume }}</div>
+              {% endif %}
+            </td>
+            
+            
+            <td>{{ consumed.amount_consumed|default_if_none:"-" }}</td>
+            <td>{{ consumed.date_consumed|default_if_none:"-" }}</td>
+            <td>
+              {% if consumed.amount_consumed != None and consumed.date_consumed != None %}
+              <span
+                type="button"
+                class="badge disabled"
+                onclick="getFlavouringsData(
+                  id='{{ list.flavourings_id }}',
+                  flavourings_id='{{ list.id }}',
+                  batch_no='{{ list.batch_no }}', 
+                  flavourings='{{ list.flavourings }}', 
+                  date_received='{{ list.date_received }}' , 
+                  total_avail_volume='{{ consumed.total_avail_volume }}',
+                  amount_consumed='{{ consumed.amount_consumed}}',
+                  date_consumed='{{ consumed.date_consumed }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                title="You already update this data"
+              >
+                Done
+              </span>
+              {% else %}
+              <span
+                type="button"
+                class="badge"
+                onclick="getFlavouringsData(
+                  id='{{ list.flavourings_id }}',
+                  flavourings_id='{{ list.id }}',
+                  batch_no='{{ list.batch_no }}', 
+                  flavourings='{{ list.flavourings }}', 
+                  date_received='{{ list.date_received }}' , 
+                  total_avail_volume='{{ list.total_avail_volume }}',
+                  amount_consumed='{{ list.amount_consumed}}',
+                  date_consumed='{{list.date_consumed }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#updateMongo"
+              >
+                Update
+              </span>
+              {% endif %}
+            </td>
+            {% empty %}
+            <td> {{ list.total_avail_volume }} </td>
+            <td> - </td>
+            <td> - </td>
+            
+            <td>
+              {% if consumed.amount_consumed != None and consumed.date_consumed != None %}
+              <span
+                type="button"
+                class="badge disabled"
+                onclick="getFlavouringsData(
+                  id='{{ list.flavourings_id }}',
+                  flavourings_id='{{ list.id }}',
+                  batch_no='{{ list.batch_no }}', 
+                  flavourings='{{ list.flavourings }}', 
+                  date_received='{{ list.date_received }}' , 
+                  total_avail_volume='{{ list.total_avail_volume }}',
+                  amount_consumed='{{ consumed.amount_consumed}}',
+                  date_consumed='{{ consumed.date_consumed }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                title="You already update this data"
+              >
+                Done
+              </span>
+              {% else %}
+              <span
+                type="button"
+                class="badge"
+                onclick="getFlavouringsData(
+                  id='{{ list.flavourings_id }}',
+                  flavourings_id='{{ list.id }}',
+                  batch_no='{{ list.batch_no }}', 
+                  flavourings='{{ list.flavourings }}', 
+                  date_received='{{ list.date_received }}' , 
+                  total_avail_volume='{{ list.total_avail_volume }}',
+                  amount_consumed='{{ list.amount_consumed}}',
+                  date_consumed='{{list.date_consumed }}')"
+                style="
+                  background-color: #003871;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#updateFlavourings"
+              >
+                Update
+              </span>
+              {% endif %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+{% include "modal/add_flavourings.html" %} {% include "modal/update_flavourings.html" %}
+
+<script>
+  function getFlavouringsData(
+    id,
+    flavourings_id,
+    batch_no,
+    flavourings,
+    date_received,
+    total_avail_volume,
+    amount_consumed,
+    date_consumed
+  ) {
+    console.log(id);
+    document.getElementById("update_batch_no").value = batch_no;
+    document.getElementById("update_date_received").value = date_received;
+    document.getElementById("update_total_avail_volume").value =
+      total_avail_volume;
+    document.getElementById("flavourings_id").value = flavourings_id;
+    document.getElementById("update_flavourings").value = flavourings;
+    document.getElementById("inventory_id").value = id;
+    console.log(flavourings);
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#mongoTable").DataTable({
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      fixedHeader: true,
+    });
+  });
+</script>
+
+{% endblock %}

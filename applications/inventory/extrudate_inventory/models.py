@@ -1,10 +1,11 @@
 from django.db import models
 
 # Create your models here.
+from applications.base_settings.models import BaseModel
 from applications.base_settings.uuid_generator import *
 
 
-class ExtruDateInventory(models.Model):
+class ExtruDateInventory(BaseModel):
     extru_id = models.CharField("ID", max_length=255, default=generate_id(), editable=False)
     batch_no = models.CharField("Batch No.", max_length=255)
     date_produced = models.DateField("Date Produced",auto_now_add=False)

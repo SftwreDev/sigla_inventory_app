@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.db.models import Sum
 import datetime
 from applications.inventory.rice_inventory.models import *
 
+@login_required(login_url='/app/v1/accounts/login/')
 def rice_list(request):
     template_name = "rice/rice_table.html"
     rice_inventory = RiceInventory.objects.all()

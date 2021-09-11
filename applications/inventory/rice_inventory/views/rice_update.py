@@ -16,20 +16,21 @@ def update_rice_inventory(request):
                 date_received = request.POST['update_date_received']
                 date_consumed = request.POST['update_date_consumed']
                 amount_consumed = request.POST['update_amount_consumed']
+                total_volume = request.POST['update_total_avail_volume']
                 parse_date = parse(date_received)
                 received_date = datetime.datetime.strftime(parse_date, '%Y-%m-%d')
                 
 
                 total_avail_volume = RiceInventory.objects.all().order_by("-id")[0]
                 volume_left = total_avail_volume.total_avail_volume
-                latest_vol = volume_left - int(amount_consumed)
+                latest_vol = int(total_volume) - int(amount_consumed)
                 
                 update_object = RiceConsumed.objects.filter(inventory_id=rice_id).create(
                     rice_id=generate_id(),
                     inventory_id_id=rice_id,
                     date_consumed=date_consumed,
                     amount_consumed=amount_consumed,
-                    total_avail_volume=volume_left
+                    total_avail_volume=int(total_volume)
                 )
 
                 if latest_vol != 0:

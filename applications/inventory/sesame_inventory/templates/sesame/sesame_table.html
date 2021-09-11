@@ -95,11 +95,11 @@
                 type="button"
                 class="badge disabled"
                 onclick="getRiceData(
-                  id='{{ list.rice_id }}',
-                  mongo_id='{{ list.id }}',
+                  id='{{ list.sesame_id }}',
+                  sesame_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
-                  total_avail_volume='{{ consumed.total_avail_volume }}',
+                  total_avail_volume='{{ list.total_avail_volume }}',
                   amount_consumed='{{ consumed.amount_consumed}}',
                   date_consumed='{{ consumed.date_consumed }}')"
                 style="
@@ -120,7 +120,7 @@
                 class="badge"
                 onclick="getSesameData(
                   id='{{ list.sesame_id }}',
-                  mongo_id='{{ list.id }}',
+                  sesame_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
                   total_avail_volume='{{ list.total_avail_volume }}',
@@ -140,7 +140,7 @@
               {% endif %}
             </td>
             {% empty %}
-            <td> {{ total }} </td>
+            <td> {{ list.total_avail_volume }} </td>
             <td> - </td>
             <td> - </td>
             
@@ -151,7 +151,7 @@
                 class="badge disabled"
                 onclick="getSesameData(
                   id='{{ list.sesame_id }}',
-                  mongo_id='{{ list.id }}',
+                  sesame_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
                   total_avail_volume='{{ consumed.total_avail_volume }}',
@@ -175,7 +175,7 @@
                 class="badge"
                 onclick="getSesameData(
                   id='{{ list.sesame_id }}',
-                  mongo_id='{{ list.id }}',
+                  sesame_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
                   date_received='{{ list.date_received }}' , 
                   total_avail_volume='{{ list.total_avail_volume }}',
