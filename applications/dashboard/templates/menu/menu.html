@@ -9,25 +9,15 @@
       >
         Get Started
       </button>
-      <button
-        type="button"
-        class="list-group-item list-group-item-action"
-        onclick="showContent()"
-        data-bs-toggle="tooltip"
-        data-bs-placement="right"
-        title="Click here to generate batch codes"
-      >
-        Generate Code
-      </button>
-      <button
-        type="button"
+      <a
+        href="{% url 'dashboard:dashboard' %}"
         class="list-group-item list-group-item-action"
         data-bs-toggle="tooltip"
         data-bs-placement="right"
-        title="Click here to see generated batch codes"
+        title="Click here to open inventory"
       >
-        View Generated Codes
-      </button>
+        Open Inventory
+      </a>
     </div>
   </div>
   <div class="col-sm col-md col-lg"></div>
