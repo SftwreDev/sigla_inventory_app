@@ -9,10 +9,14 @@ def add_fried_packed_inventory(request):
         try:
             batch_no = request.POST['batch_no']
             date_fried = request.POST['date_fried']
+            no_of_packs_15g = request.POST['no_of_packs_15g']
+            no_of_packs_30g = request.POST['no_of_packs_30g']
 
             create_object = FriedInventory.objects.create(
                 batch_no=batch_no,
                 date_fried=date_fried,
+                no_of_packs_15g=no_of_packs_15g,
+                no_of_packs_30g=no_of_packs_30g
             )
 
             return redirect("fried:fried_list")

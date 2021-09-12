@@ -29,6 +29,7 @@
               class="form-control"
               id="cust_name"
               name="cust_name"
+              required
             />
           </div>
           {% comment %} <div class="mb-3">
@@ -46,8 +47,7 @@
             <label for="batch_no_extrudate" class="form-label"
               >Extrudate Batch No. : 
             </label>
-            <select class="form-select" name="batch_no_extrudate" id="batch_no_extrudate">
-                <option selected>Select Extrudate Batch No. </option>
+            <select class="form-select" name="batch_no_extrudate" id="batch_no_extrudate" required>
               {% for extrudate in extrudate %}
                 <option value="{{extrudate}}">{{extrudate}}</option>
               {% endfor %}
@@ -57,8 +57,7 @@
             <label for="batch_no_fried" class="form-label"
               >Fried/Packed Batch No. : 
             </label>
-            <select class="form-select" name="batch_no_fried" id="batch_no_fried">
-                <option selected>Select Fried/Packed  Batch No. </option>
+            <select class="form-select" name="batch_no_fried" id="batch_no_fried" required>
               {% for fried in fried %}
                 <option value="{{fried}}">{{fried}}</option>
               {% endfor %}
@@ -73,6 +72,7 @@
               class="form-control"
               id="date_delivered"
               name="date_delivered"
+              required
             />
           </div>
         </div>

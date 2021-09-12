@@ -43,8 +43,10 @@
       <table class="table table-sm text-center" id="mongoTable">
         <thead>
           <tr>
-            <th scope="col">Batch No.</th>
-            <th scope="col">Date Fried</th>
+            <th scope="col">FPID</th>
+            <th scope="col">Date Fried/Packed</th>
+            <th scope="col">No. of Packs (15g)</th>
+            <th scope="col">No. of Packs (30g)</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -53,6 +55,8 @@
           <tr>
             <td>{{ list.batch_no|default_if_none:"-" }}</td>
             <td>{{ list.date_fried|default_if_none:"-" }}</td>
+            <td>{{ list.no_of_packs_15g|default_if_none:"-" }}</td>
+            <td>{{ list.no_of_packs_30g|default_if_none:"-" }}</td>
             <td>
               {% comment %} {% if consumed.amount_consumed != None and consumed.date_consumed != None %} {% endcomment %}
               <span
@@ -61,7 +65,9 @@
                 onclick="getFriedData(
                   id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}', 
-                  date_fried='{{ list.date_fried }}')"
+                  date_fried='{{ list.date_fried }}',
+                  no_of_packs_15g='{{ list.no_of_packs_15g }}',
+                  no_of_packs_30g='{{ list.no_of_packs_30g }}')"
                 style="
                   background-color: #003871;
                   color: white;
@@ -104,11 +110,15 @@ function formatDate(date) {
   function getFriedData(
     id,
     batch_no,
-    date_fried
+    date_fried,
+    no_of_packs_15g,
+    no_of_packs_30g
   ) {
     document.getElementById("update_batch_no").value = batch_no;
     document.getElementById("update_date_fried").value = formatDate(date_fried);
     document.getElementById("fried_id").value = id;
+    document.getElementById("update_no_of_packs_15g").value = no_of_packs_15g;
+    document.getElementById("update_no_of_packs_30g").value = no_of_packs_30g;
   }
 </script>
 

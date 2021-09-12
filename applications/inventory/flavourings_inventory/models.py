@@ -8,7 +8,7 @@ from applications.base_settings.models import BaseModel
 
 class FlavouringsInventory(BaseModel):
     flavourings_id = models.CharField("ID", max_length=255, default=generate_id(), editable=False)
-    batch_no = models.CharField("Batch No.", max_length=255)
+    batch_no = models.CharField("FLID", max_length=255)
     date_received = models.DateField("Date Received",auto_now_add=False)
     total_avail_volume = models.IntegerField("Total Available Volume")
     flavourings = models.CharField("Flavourings",max_length=255)

@@ -11,8 +11,11 @@ def update_market_inventory(request):
         try:
             id = request.POST['market_id']
             cust_name = request.POST['update_cust_name']
-            lot_code = request.POST['update_lot_code']
+            # lot_code = request.POST['update_lot_code']
             date_delivered = request.POST['update_date_delivered']
+            extrudate = request.POST['update_batch_no_extrudate']
+            fried = request.POST['update_batch_no_fried']
+            lot_code = extrudate + fried
 
             update_object = MarketInventory.objects.filter(id=id).update(
                 cust_name=cust_name,

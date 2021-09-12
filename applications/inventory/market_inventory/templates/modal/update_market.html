@@ -42,16 +42,36 @@
               name="update_cust_name"
             />
           </div>
+{#          <div class="mb-3">#}
+{#            <label for="update_lot_code" class="form-label"#}
+{#              >Lot Code : #}
+{#            </label>#}
+{#            <input#}
+{#              type="number"#}
+{#              class="form-control"#}
+{#              id="update_lot_code"#}
+{#              name="update_lot_code"#}
+{#            />#}
+{#          </div>#}
           <div class="mb-3">
-            <label for="update_lot_code" class="form-label"
-              >Lot Code : 
+            <label for="update_batch_no_extrudate" class="form-label"
+              >Extrudate Batch No. :
             </label>
-            <input
-              type="number"
-              class="form-control"
-              id="update_lot_code"
-              name="update_lot_code"
-            />
+            <select class="form-select" name="update_batch_no_extrudate" id="update_batch_no_extrudate" required>
+              {% for extrudate in extrudate %}
+                <option value="{{extrudate}}">{{extrudate}}</option>
+              {% endfor %}
+              </select>
+          </div>
+          <div class="mb-3">
+            <label for="update_batch_no_fried" class="form-label"
+              >Fried/Packed Batch No. :
+            </label>
+            <select class="form-select" name="update_batch_no_fried" id="update_batch_no_fried" required>
+              {% for fried in fried %}
+                <option value="{{fried}}">{{fried}}</option>
+              {% endfor %}
+              </select>
           </div>
           <div class="mb-3">
             <label for="update_date_delivered" class="form-label"

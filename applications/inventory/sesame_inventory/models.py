@@ -7,7 +7,7 @@ from applications.base_settings.uuid_generator import *
 
 class SesameInventory(BaseModel):
     sesame_id = models.CharField("ID", max_length=255, default=generate_id(), editable=False)
-    batch_no = models.CharField("Batch No.", max_length=255)
+    batch_no = models.CharField("SID", max_length=255)
     date_received = models.DateField("Date Received",auto_now_add=False)
     total_avail_volume = models.IntegerField("Total Available Volume")
 

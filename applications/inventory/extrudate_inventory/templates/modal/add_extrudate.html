@@ -22,13 +22,14 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="batch_no" class="form-label"
-              >Batch No.  :
+              >EXTID  :
             </label>
             <input
               type="number"
               class="form-control"
               id="batch_no"
               name="batch_no"
+              required
             />
           </div>
           <div class="mb-3">
@@ -41,6 +42,7 @@
               id="dateProduced"
               id="date_produced"
               name="date_produced"
+              required
             />
           </div>
           <div class="mb-3">
@@ -53,6 +55,7 @@
               id="totalVolume"
               id="total_volume"
               name="total_volume"
+              required
             />
           </div>
           <div class="mb-3">
@@ -66,7 +69,7 @@
               name="batch_no_mongo"
             /> {% endcomment %}
               <select class="form-select" name="batch_no_mongo" id="batch_no_mongo">
-                <option selected>Select Mongo Batch No. </option>
+              <option selected value="0"></option>
               {% for mongo in mongo %}
                 <option value="{{mongo}}">{{mongo}}</option>
               {% endfor %}
@@ -83,7 +86,7 @@
               name="batch_no_rice"
             /> {% endcomment %}
               <select class="form-select" name="batch_no_rice" id="batch_no_rice">
-                <option selected>Select Rice Batch No. </option>
+              <option selected value="0"></option>
               {% for rice in rice %}
                 <option value="{{rice}}">{{rice}}</option>
               {% endfor %}
@@ -100,7 +103,7 @@
               name="batch_no_sesame"
             /> {% endcomment %}
             <select class="form-select" name="batch_no_sesame" id="batch_no_sesame">
-                <option selected>Select Sesame Batch No. </option>
+                <option selected value="0"></option>
               {% for sesame in sesame %}
                 <option value="{{sesame}}">{{sesame}}</option>
               {% endfor %}
