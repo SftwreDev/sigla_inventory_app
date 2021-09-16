@@ -19,36 +19,40 @@ def update_mongo_inventory(request):
                 total_volume = request.POST['update_total_avail_volume']
                 parse_date = parse(date_received)
                 received_date = datetime.datetime.strftime(parse_date, '%Y-%m-%d')
-                print(mongo_id)
-                
 
-                total_avail_volume = MongoInventory.objects.all().order_by("-id")[0]
-                volume_left = total_avail_volume.total_avail_volume
-                latest_vol = int(total_volume) - int(amount_consumed)
-                
-                update_object = MongoConsumed.objects.filter(inventory_id=mongo_id).create(
-                    mongo_id=generate_id(),
-                    inventory_id_id=mongo_id,
-                    date_consumed=date_consumed,
-                    amount_consumed=amount_consumed,
-                    total_avail_volume= int(total_volume)
-                )
-
-                if latest_vol != 0:
-                    update_inventory = MongoInventory.objects.filter(id=mongo_id).update(
-                        total_avail_volume=0
-                    )
-                    create_object = MongoInventory.objects.create(
+                if amount_consumed != "" or date_consumed != "" :
+                    latest_vol = int(total_volume) - int(amount_consumed)
+                    update_object = MongoConsumed.objects.filter(inventory_id=mongo_id).create(
                         mongo_id=generate_id(),
-                        batch_no=batch_no,
-                        date_received=received_date,
-                        total_avail_volume=latest_vol
+                        inventory_id_id=mongo_id,
+                        date_consumed=date_consumed,
+                        amount_consumed=amount_consumed,
+                        total_avail_volume= int(total_volume)
                     )
+                    if latest_vol != 0:
+                        update_inventory = MongoInventory.objects.filter(id=mongo_id).update(
+                            total_avail_volume=0,
+                            batch_no=batch_no,
+                            date_received=date_received
+                        )
+                        create_object = MongoInventory.objects.create(
+                            mongo_id=generate_id(),
+                            batch_no=batch_no,
+                            date_received=received_date,
+                            total_avail_volume=latest_vol
+                        )
+                    else:
+                        update_inventory = MongoInventory.objects.filter(id=mongo_id).update(
+                            total_avail_volume=0
+                        )
+
                 else:
                     update_inventory = MongoInventory.objects.filter(id=mongo_id).update(
-                        total_avail_volume=0
+                        total_avail_volume=total_volume,
+                        batch_no=batch_no,
+                        date_received=date_received
                     )
-   
+
                 return redirect("mongo:mongo_list")
         except Exception as e:
             print(e)

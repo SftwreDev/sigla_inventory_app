@@ -17,7 +17,7 @@
           aria-label="Close"
         ></a>
       </div>
-      <form action="/app/v1/update-mongo" method="post">
+      <form action="/app/v1/update-mongo" method="post"  name="myForm"  onsubmit="return validateForm()">
         {% csrf_token %}
         <div class="modal-body">
           <div class="mb-3" style="display: none;">
@@ -48,7 +48,7 @@
               class="form-control"
               id="update_batch_no"
               name="update_batch_no"
-              readonly
+
             />
           </div>
           <div class="mb-3">
@@ -56,10 +56,11 @@
               >Date Received :
             </label>
             <input
+              type="date"
               class="form-control"
               id="update_date_received"
               name="update_date_received"
-              readonly
+
             />
           </div>
           <div class="mb-3">
@@ -71,7 +72,7 @@
               class="form-control"
               id="update_total_avail_volume"
               name="update_total_avail_volume"
-              readonly
+
             />
           </div>
           <div class="mb-3">
@@ -84,8 +85,11 @@
               id="updateAmountConsumed"
               id="update_amount_consumed"
               name="update_amount_consumed"
-              required
             />
+          <small class="text-danger" id="validateAmountConsumed" style="display: none;">This field is required</small>
+            <div class="invalid-feedback">
+                This field is required
+            </div>
           </div>
           <div class="mb-3">
             <label for="updateDateConsumed" class="form-label"
@@ -97,8 +101,8 @@
               id="updateDateConsumed"
               id="update_date_consumed"
               name="update_date_consumed"
-              required
             />
+            <small class="text-danger" id="validateDateConsumed" style="display: none;">This field is required</small>
           </div>
         </div>
         <div class="modal-footer">
@@ -114,3 +118,20 @@
     </div>
   </div>
 </div>
+
+<script>
+function validateForm() {
+    const amountConsumed = document.forms["myForm"]["update_amount_consumed"].value;
+    const dateConsumed = document.forms["myForm"]["update_date_consumed"].value;
+    const validateDateConsumed = document.getElementById("validateDateConsumed");
+    const validateAmountConsumed = document.getElementById("validateAmountConsumed");
+
+    if (amountConsumed !== "" ) {
+    {#validateDateConsumed.style.display = "block";#}
+    {#return false;#}
+  } else if ( dateConsumed !== "") {
+    {#validateAmountConsumed.style.display = "block";#}
+    {#return false;#}
+    }
+}
+</script>

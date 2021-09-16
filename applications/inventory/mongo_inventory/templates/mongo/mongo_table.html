@@ -1,25 +1,17 @@
-{% extends 'template.html' %} {% block body %} {% block extrastylesheet %}
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
-  rel="stylesheet"
-/>
-<link
-  href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"
-  rel="stylesheet"
-/>
-<link
-  href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap4.min.css"
-  rel="stylesheet"
-/>
-{% endblock extrastylesheet %}
+{% extends 'template.html' %} {% block body %}
+{% include "datatables.html" %}
 
 <h3>Mongo Products Inventory</h3>
 
 <a
   href="{% url 'dashboard:dashboard' %}"
   class="text-primary text-decoration-none"
-  ><i class="fas fa-arrow-left" aria-hidden="false"></i>&nbsp; Go back to
-  Inventory Menu</a
+  >
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+</svg>
+    Go back to Inventory Menu
+</a
 >
 <br />
 {% if total == 0 %}
@@ -97,8 +89,8 @@
                 onclick="getMongoData(
                   id='{{ list.mongo_id }}',
                   mongo_id='{{ list.id }}',
-                  batch_no='{{ list.batch_no }}', 
-                  date_received='{{ list.date_received }}' , 
+                  batch_no='{{ list.batch_no }}',
+                  date_received='{{ list.date_received }}' ,
                   total_avail_volume='{{ consumed.total_avail_volume }}',
                   amount_consumed='{{ consumed.amount_consumed}}',
                   date_consumed='{{ consumed.date_consumed }}')"
@@ -107,12 +99,16 @@
                   color: white;
                   font-size: 12px;
                   font-weight: bold;
+                  padding: 5px;
                 "
                 data-bs-toggle="tooltip"
                 data-bs-placement="right"
                 title="You already update this data"
               >
-                Done
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
               </span>
               {% else %}
               <span
@@ -121,8 +117,8 @@
                 onclick="getMongoData(
                   id='{{ list.mongo_id }}',
                   mongo_id='{{ list.id }}',
-                  batch_no='{{ list.batch_no }}', 
-                  date_received='{{ list.date_received }}' , 
+                  batch_no='{{ list.batch_no }}',
+                  date_received='{{ list.date_received }}' ,
                   total_avail_volume='{{ list.total_avail_volume }}',
                   amount_consumed='{{ list.amount_consumed}}',
                   date_consumed='{{list.date_consumed }}')"
@@ -135,9 +131,33 @@
                 data-bs-toggle="modal"
                 data-bs-target="#updateMongo"
               >
-                Update
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
               </span>
               {% endif %}
+              <span
+                type="button"
+                class="badge disabled"
+                onclick="deleteMongoData(
+                  id='{{ list.mongo_id }}',
+                  mongo_id='{{ list.id }}')"
+                style="
+                  background-color: #cb2329;
+                  color: white;
+                  font-size: 12px;
+                  font-weight: bold;
+                  padding: 5px;
+                "
+                data-bs-toggle="modal"
+                data-bs-target="#deleteMongo"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+              </span>
             </td>
             {% empty %}
             <td> {{ list.total_avail_volume }} </td>
@@ -152,8 +172,8 @@
                 onclick="getMongoData(
                   id='{{ list.mongo_id }}',
                   mongo_id='{{ list.id }}',
-                  batch_no='{{ list.batch_no }}', 
-                  date_received='{{ list.date_received }}' , 
+                  batch_no='{{ list.batch_no }}',
+                  date_received='{{ list.date_received }}' ,
                   total_avail_volume='{{ list.total_avail_volume }}',
                   amount_consumed='{{ consumed.amount_consumed}}',
                   date_consumed='{{ consumed.date_consumed }}')"
@@ -162,12 +182,16 @@
                   color: white;
                   font-size: 12px;
                   font-weight: bold;
+                  padding: 5px;
                 "
                 data-bs-toggle="tooltip"
                 data-bs-placement="right"
                 title="You already update this data"
               >
-                Done
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
               </span>
               {% else %}
               <span
@@ -176,8 +200,8 @@
                 onclick="getMongoData(
                   id='{{ list.mongo_id }}',
                   mongo_id='{{ list.id }}',
-                  batch_no='{{ list.batch_no }}', 
-                  date_received='{{ list.date_received }}' , 
+                  batch_no='{{ list.batch_no }}',
+                  date_received='{{ list.date_received }}' ,
                   total_avail_volume='{{ list.total_avail_volume }}',
                   amount_consumed='{{ list.amount_consumed}}',
                   date_consumed='{{list.date_consumed }}')"
@@ -186,11 +210,15 @@
                   color: white;
                   font-size: 12px;
                   font-weight: bold;
+                  padding: 5px;
                 "
                 data-bs-toggle="modal"
                 data-bs-target="#updateMongo"
               >
-                Update
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
               </span>
               {% endif %}
             </td>
@@ -204,9 +232,23 @@
 </div>
 
 <!-- Modal -->
-{% include "modal/add_mongo.html" %} {% include "modal/update_mongo.html" %}
+{% include "modal/add_mongo.html" %} {% include "modal/update_mongo.html" %} {% include "modal/delete_mongo.html" %}
 
 <script>
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2)
+      month = '0' + month;
+  if (day.length < 2)
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
   function getMongoData(
     id,
     mongo_id,
@@ -218,19 +260,21 @@
   ) {
     console.log(id);
     document.getElementById("update_batch_no").value = batch_no;
-    document.getElementById("update_date_received").value = date_received;
+    document.getElementById("update_date_received").value = formatDate(date_received) ;
     document.getElementById("update_total_avail_volume").value =
       total_avail_volume;
     document.getElementById("mongo_id").value = mongo_id;
     document.getElementById("inventory_id").value = id;
   }
+
+    function deleteMongoData(
+    id,
+    mongo_id
+  ) {
+    document.getElementById("delete_mongo_id").value = mongo_id;
+    document.getElementById("delete_inventory_id").value = id;
+  }
 </script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
-
 <script>
   $(document).ready(function () {
     $("#mongoTable").DataTable({

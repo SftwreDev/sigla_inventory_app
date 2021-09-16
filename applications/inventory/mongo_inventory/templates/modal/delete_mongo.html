@@ -1,0 +1,73 @@
+<div
+  class="modal fade"
+  id="deleteMongo"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Delete Mongo Batch</h5>
+        <a
+          href="{% url 'mongo:mongo_list' %}"
+          class="btn-close"
+          aria-label="Close"
+        ></a>
+      </div>
+      <form action="/app/v1/delete-mongo" method="post"  name="myForm"  onsubmit="return validateForm()">
+        {% csrf_token %}
+                    <div class="mb-3" style="display: none;">
+            <label for="delete_mongo_id" class="form-label"
+              >ID  :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="delete_mongo_id"
+              name="delete_mongo_id"
+              readonly
+            />
+            <input
+              type="number"
+              class="form-control"
+              id="delete_inventory_id"
+              name="delete_inventory_id"
+              readonly
+            />
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete this ?</p>
+          </div>
+        <div class="modal-footer">
+          <a
+            href="{% url 'mongo:mongo_list' %}"
+            class="btn btn-secondary"
+          >
+            No
+          </a>
+          <button type="submit" class="btn btn-danger">Yes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function validateForm() {
+    const amountConsumed = document.forms["myForm"]["update_amount_consumed"].value;
+    const dateConsumed = document.forms["myForm"]["update_date_consumed"].value;
+    const validateDateConsumed = document.getElementById("validateDateConsumed");
+    const validateAmountConsumed = document.getElementById("validateAmountConsumed");
+
+    if (amountConsumed !== "" ) {
+    {#validateDateConsumed.style.display = "block";#}
+    {#return false;#}
+  } else if ( dateConsumed !== "") {
+    {#validateAmountConsumed.style.display = "block";#}
+    {#return false;#}
+    }
+}
+</script>
