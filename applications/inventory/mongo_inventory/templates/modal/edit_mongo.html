@@ -1,6 +1,6 @@
 <div
   class="modal fade"
-  id="updateMongo"
+  id="editMongo"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
   tabindex="-1"
@@ -11,86 +11,79 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Update Mongo Batch</h5>
-
         <a
           href="{% url 'mongo:mongo_list' %}"
           class="btn-close"
           aria-label="Close"
         ></a>
-
       </div>
-        <small class="text-danger p-3">
-              Please be informed that you can only update this data once! <br>
-              Make sure to check everything before saving.
-        </small>
-      <form action="/app/v1/update-mongo" method="post"  name="myForm" >
+      <form action="/app/v1/edit-mongo" method="post"  name="myForm"  onsubmit="return validateForm()">
         {% csrf_token %}
         <div class="modal-body">
           <div class="mb-3" style="display: none;">
-            <label for="mongo_id" class="form-label"
+            <label for="edit_mongo_id" class="form-label"
               >ID  :
             </label>
             <input
               type="number"
               class="form-control"
-              id="mongo_id"
-              name="mongo_id"
+              id="edit_mongo_id"
+              name="edit_mongo_id"
               readonly
             />
             <input
               type="number"
               class="form-control"
-              id="inventory_id"
-              name="inventory_id"
+              id="edit_inventory_id"
+              name="edit_inventory_id"
               readonly
             />
           </div>
           <div class="mb-3">
-            <label for="update_batch_no" class="form-label"
+            <label for="edit_batch_no" class="form-label"
               >MID To Update  :
             </label>
             <input
               type="number"
               class="form-control"
-              id="update_batch_no"
-              name="update_batch_no"
+              id="edit_batch_no"
+              name="edit_batch_no"
 
             />
           </div>
           <div class="mb-3">
-            <label for="update_date_received" class="form-label"
+            <label for="edit_date_received" class="form-label"
               >Date Received :
             </label>
             <input
               type="date"
               class="form-control"
-              id="update_date_received"
-              name="update_date_received"
+              id="edit_date_received"
+              name="edit_date_received"
 
             />
           </div>
           <div class="mb-3">
-            <label for="update_total_avail_volume" class="form-label"
+            <label for="edit_total_avail_volume" class="form-label"
               >Total Available Volume :
             </label>
             <input
               type="number"
               class="form-control"
-              id="update_total_avail_volume"
-              name="update_total_avail_volume"
+              id="edit_total_avail_volume"
+              name="edit_total_avail_volume"
 
             />
           </div>
           <div class="mb-3">
-            <label for="updateAmountConsumed" class="form-label"
+            <label for="edit_AmountConsumed" class="form-label"
               >Amount Consumed :
             </label>
             <input
               type="number"
               class="form-control"
-              id="updateAmountConsumed"
-              id="update_amount_consumed"
-              name="update_amount_consumed"
+              id="edit_AmountConsumed"
+              name="edit_AmountConsumed"
             />
           <small class="text-danger" id="validateAmountConsumed" style="display: none;">This field is required</small>
             <div class="invalid-feedback">
@@ -98,15 +91,14 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="updateDateConsumed" class="form-label"
+            <label for="edit_DateConsumed" class="form-label"
               >Date Consumed :
             </label>
             <input
               type="date"
               class="form-control"
-              id="updateDateConsumed"
-              id="update_date_consumed"
-              name="update_date_consumed"
+              id="edit_DateConsumed"
+              name="edit_DateConsumed"
             />
             <small class="text-danger" id="validateDateConsumed" style="display: none;">This field is required</small>
           </div>
@@ -124,33 +116,20 @@
     </div>
   </div>
 </div>
-    <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Large Modal</h4>
-          </div>
-          <div class="modal-body">
-            <h3>Modal Body</h3>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="validateForm()">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
 <script>
 function validateForm() {
-    const amountConsumed = document.getElementById("update_amount_consumed").value;
-    const dateConsumed = document.getElementById("update_date_consumed").value;
+    const amountConsumed = document.forms["myForm"]["update_amount_consumed"].value;
+    const dateConsumed = document.forms["myForm"]["update_date_consumed"].value;
     const validateDateConsumed = document.getElementById("validateDateConsumed");
     const validateAmountConsumed = document.getElementById("validateAmountConsumed");
 
-  if (amountConsumed === "" || dateConsumed === "") {
-    alert("Name must be filled out");
-    return false;
-  }
+    if (amountConsumed !== "" ) {
+    {#validateDateConsumed.style.display = "block";#}
+    {#return false;#}
+  } else if ( dateConsumed !== "") {
+    {#validateAmountConsumed.style.display = "block";#}
+    {#return false;#}
+    }
 }
 </script>

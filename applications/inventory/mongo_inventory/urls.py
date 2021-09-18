@@ -12,4 +12,5 @@ urlpatterns = [
     path("add-mongo", add_mongo_inventory, name="add_mongo"),
     path("update-mongo", update_mongo_inventory, name="update_mongo"),
     path("delete-mongo", delete_mongo_inventory, name="delete_mongo"),
+    path("edit-mongo", edit_mongo_inventory, name="edit_mongo"),
 ]

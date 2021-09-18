@@ -6,7 +6,6 @@ from applications.inventory.mongo_inventory.models import *
 from applications.base_settings.uuid_generator import *
 
 def update_mongo_inventory(request):
-
     if request.method == 'POST':
         try:
             if request.method == 'POST':
@@ -20,7 +19,7 @@ def update_mongo_inventory(request):
                 parse_date = parse(date_received)
                 received_date = datetime.datetime.strftime(parse_date, '%Y-%m-%d')
 
-                if amount_consumed != "" or date_consumed != "" :
+                if amount_consumed != "" or  date_consumed != "" :
                     latest_vol = int(total_volume) - int(amount_consumed)
                     update_object = MongoConsumed.objects.filter(inventory_id=mongo_id).create(
                         mongo_id=generate_id(),
@@ -53,6 +52,43 @@ def update_mongo_inventory(request):
                         date_received=date_received
                     )
 
+                return redirect("mongo:mongo_list")
+        except Exception as e:
+            print(e)
+            context = {
+                "error": e
+            }
+            error_template = "error.html"
+            return render(request, error_template, context)
+    return redirect('dashboard:dashboard')
+
+
+def edit_mongo_inventory(request):
+    if request.method == 'POST':
+        try:
+            if request.method == 'POST':
+                mongo_id = request.POST['edit_mongo_id']
+                id = request.POST['edit_inventory_id']
+                batch_no = request.POST['edit_batch_no']
+                date_received = request.POST['edit_date_received']
+                date_consumed = request.POST['edit_DateConsumed']
+                amount_consumed = request.POST['edit_AmountConsumed']
+                total_volume = request.POST['edit_total_avail_volume']
+                parse_date = parse(date_received)
+                received_date = datetime.datetime.strftime(parse_date, '%Y-%m-%d')
+
+                latest_vol = int(total_volume) - int(amount_consumed)
+                update_object = MongoConsumed.objects.filter(inventory_id=mongo_id).update(
+                    inventory_id_id=mongo_id,
+                    date_consumed=date_consumed,
+                    amount_consumed=amount_consumed,
+                    total_avail_volume=int(total_volume)
+                )
+                update_inventory = MongoInventory.objects.filter(id=mongo_id).update(
+                    total_avail_volume=0,
+                    batch_no=batch_no,
+                    date_received=date_received
+                )
                 return redirect("mongo:mongo_list")
         except Exception as e:
             print(e)

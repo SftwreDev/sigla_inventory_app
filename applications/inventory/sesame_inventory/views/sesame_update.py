@@ -21,31 +21,36 @@ def update_sesame_inventory(request):
                 received_date = datetime.datetime.strftime(parse_date, '%Y-%m-%d')
                 print("ID >>>", sesame_id)
 
-                total_avail_volume = SesameInventory.objects.all().order_by("-id")[0]
-                volume_left = total_avail_volume.total_avail_volume
-                latest_vol = int(total_volume) - int(amount_consumed)
-                
-                update_object = SesameConsumed.objects.filter(inventory_id=sesame_id).create(
-                    sesame_id=generate_id(),
-                    inventory_id_id=sesame_id,
-                    date_consumed=date_consumed,
-                    amount_consumed=amount_consumed,
-                    total_avail_volume=int(total_volume)
-                )
-                print(id)
-                if latest_vol != 0:
-                    update_inventory = SesameInventory.objects.filter(id=sesame_id).update(
-                        total_avail_volume=0
-                    )
-                    create_object = SesameInventory.objects.create(
+                if amount_consumed != "" or  date_consumed != "" :
+                    total_avail_volume = SesameInventory.objects.all().order_by("-id")[0]
+                    volume_left = total_avail_volume.total_avail_volume
+                    latest_vol = int(total_volume) - int(amount_consumed)
+                    update_object = SesameConsumed.objects.filter(inventory_id=sesame_id).create(
                         sesame_id=generate_id(),
-                        batch_no=batch_no,
-                        date_received=received_date,
-                        total_avail_volume=latest_vol
+                        inventory_id_id=sesame_id,
+                        date_consumed=date_consumed,
+                        amount_consumed=amount_consumed,
+                        total_avail_volume=int(total_volume)
                     )
+                    if latest_vol != 0:
+                        update_inventory = SesameInventory.objects.filter(id=sesame_id).update(
+                            total_avail_volume=0
+                        )
+                        create_object = SesameInventory.objects.create(
+                            sesame_id=generate_id(),
+                            batch_no=batch_no,
+                            date_received=received_date,
+                            total_avail_volume=latest_vol
+                        )
+                    else:
+                        update_inventory = SesameInventory.objects.filter(id=sesame_id).update(
+                            total_avail_volume=0
+                        )
                 else:
                     update_inventory = SesameInventory.objects.filter(id=sesame_id).update(
-                        total_avail_volume=0
+                        total_avail_volume=total_volume,
+                        batch_no=batch_no,
+                        date_received=date_received
                     )
    
                 return redirect("sesame:sesame_list")
