@@ -9,5 +9,5 @@ app_name = "extrudate"
 urlpatterns = [
     path("extrudate-inventory/", extrudate_list, name="extrudate_list"),
     path("add-extrudate", add_extrudate_inventory, name="add_extrudate"),
-    # path("update-mongo", update_mongo_inventory, name="update_mongo")
+    path("update-extrudate", update_extrudate_inventory, name="update_extrudate")
 ]
