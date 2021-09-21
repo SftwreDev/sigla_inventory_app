@@ -68,7 +68,7 @@
                 type="button"
                 class="badge"
                 onclick="getExtrudeData(
-                  id='{{ list.extru_id }}',
+                  inventory_id='{{ list.id }}',
                   batch_no='{{ list.batch_no }}',
                   date_produced='{{ list.date_produced }}',
                   total_volume='{{ list.total_volume }}' ,
@@ -118,7 +118,7 @@ function formatDate(date) {
 }
 
   function getExtrudeData(
-    id,
+    inventory_id,
     batch_no,
     date_produced,
     total_volume,
@@ -126,14 +126,14 @@ function formatDate(date) {
     rice_batch_no,
     sesame_batch_no
   ) {
-    console.log(id);
+    console.log(inventory_id);
+    document.getElementById("inventory_id").value = inventory_id;
     document.getElementById("update_batch_no").value = batch_no;
     document.getElementById("update_date_produced").value = formatDate(date_produced);
     document.getElementById("update_total_volume").value = total_volume;
-    document.getElementById("update_mongo_batch_no").val = mongo_batch_no,
-    document.getElementById("update_rice_batch_no").value = rice_batch_no,
-    document.getElementById("update_sesame_batch_no").value = sesame_batch_no,
-    document.getElementById("extru_id").value = 10;
+    document.getElementById("update_mongo_batch_no").val = mongo_batch_no;
+    document.getElementById("update_rice_batch_no").value = rice_batch_no;
+    document.getElementById("update_sesame_batch_no").value = sesame_batch_no;
   }
 </script>
 <script>

@@ -10,7 +10,7 @@ def update_extrudate_inventory(request):
     if request.method == 'POST':
         try:
             if request.method == 'POST':
-                id  = request.POST['extru_id']
+                id  = request.POST['inventory_id']
                 batch_no = request.POST['update_batch_no']
                 total_volume = request.POST['update_total_volume']
                 date_produced = request.POST['update_date_produced']
