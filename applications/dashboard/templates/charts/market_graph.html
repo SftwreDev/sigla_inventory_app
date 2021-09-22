@@ -8,7 +8,7 @@
         // Some raw data (not necessarily accurate)
        var data = google.visualization.arrayToDataTable([
           ['Today', "Total Transactions" ],
-          ["Total Market ", {{ market_total }}],
+          ["Total Market ", {{ market_total|default_if_none:"0" }}],
         ]);
         var options = {
           title : 'Total Number of Market Transactions( as of today )',
