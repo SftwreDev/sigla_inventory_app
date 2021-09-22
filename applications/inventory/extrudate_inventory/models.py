@@ -17,6 +17,7 @@ class ExtruDateInventory(BaseModel):
     class Meta:
         verbose_name = "ExtruDates"
         verbose_name_plural = "ExtruDates"
+        db_table = "extrudate_inventory"
 
     def __str__(self):
         return f"{self.batch_no}"

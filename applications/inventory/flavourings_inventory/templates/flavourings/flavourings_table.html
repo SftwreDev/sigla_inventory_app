@@ -4,7 +4,7 @@
 <h3>Flavourings Products Inventory</h3>
 
 <a
-  href="{% url 'dashboard:dashboard' %}"
+  href="{% url 'dashboard:inventory' %}"
   class="text-primary text-decoration-none"
   >
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
@@ -25,7 +25,7 @@
 {% endif %}
 <div
   class="card shadow mt-2"
-  style="max-width: 300px; background-color: #003871; color: white"
+  style="max-width: 300px; background-color: #680c01; color: white"
 >
   <div class="card-body">
     <h4 class="display-4">{{ total }}</h4>
@@ -41,7 +41,7 @@
   data-bs-toggle="modal"
   data-bs-target="#staticBackdrop"
   style="
-    background-color: #003871;
+    background-color: #680c01;
     color: white;
     font-size: 12px;
     font-weight: bold;
@@ -97,8 +97,7 @@
                   amount_consumed='{{ consumed.amount_consumed}}',
                   date_consumed='{{ consumed.date_consumed }}')"
                 style="
-                  background-color: #003871;
-                  color: white;
+                  color: #680c01;
                   font-size: 12px;
                   font-weight: bold;
                 "
@@ -106,7 +105,9 @@
                 data-bs-placement="right"
                 title="You already update this data"
               >
-                Done
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </svg>
               </span>
               {% else %}
               <span
@@ -122,7 +123,7 @@
                   amount_consumed='{{ list.amount_consumed}}',
                   date_consumed='{{list.date_consumed }}')"
                 style="
-                  background-color: #003871;
+                  background-color: #680c01;
                   color: white;
                   font-size: 12px;
                   font-weight: bold;
@@ -130,7 +131,10 @@
                 data-bs-toggle="modal"
                 data-bs-target="#updateMongo"
               >
-                Update
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
               </span>
               {% endif %}
             </td>
@@ -154,8 +158,7 @@
                   amount_consumed='{{ consumed.amount_consumed}}',
                   date_consumed='{{ consumed.date_consumed }}')"
                 style="
-                  background-color: #003871;
-                  color: white;
+                  color: #680c01;
                   font-size: 12px;
                   font-weight: bold;
                 "
@@ -163,7 +166,9 @@
                 data-bs-placement="right"
                 title="You already update this data"
               >
-                Done
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </svg>
               </span>
               {% else %}
               <span
@@ -179,7 +184,7 @@
                   amount_consumed='{{ list.amount_consumed}}',
                   date_consumed='{{list.date_consumed }}')"
                 style="
-                  background-color: #003871;
+                  background-color: #680c01;
                   color: white;
                   font-size: 12px;
                   font-weight: bold;
@@ -187,7 +192,10 @@
                 data-bs-toggle="modal"
                 data-bs-target="#updateFlavourings"
               >
-                Update
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
               </span>
               {% endif %}
             </td>
@@ -204,6 +212,20 @@
 {% include "modal/add_flavourings.html" %} {% include "modal/update_flavourings.html" %}
 
 <script>
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2)
+      month = '0' + month;
+  if (day.length < 2)
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
   function getFlavouringsData(
     id,
     flavourings_id,
@@ -216,7 +238,7 @@
   ) {
     console.log(id);
     document.getElementById("update_batch_no").value = batch_no;
-    document.getElementById("update_date_received").value = date_received;
+    document.getElementById("update_date_received").value = formatDate(date_received);
     document.getElementById("update_total_avail_volume").value =
       total_avail_volume;
     document.getElementById("flavourings_id").value = flavourings_id;

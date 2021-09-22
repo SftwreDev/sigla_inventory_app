@@ -13,9 +13,9 @@ def extrudate_list(request):
     extrudate_inventory = ExtruDateInventory.objects.all()
     date = datetime.date.today()
     
-    mongo = MongoInventory.objects.values_list('batch_no', flat=True)
-    rice = RiceInventory.objects.values_list('batch_no', flat=True)
-    sesame = SesameInventory.objects.values_list('batch_no', flat=True)
+    mongo = MongoInventory.objects.values_list('batch_no', flat=True).distinct()
+    rice = RiceInventory.objects.values_list('batch_no', flat=True).distinct()
+    sesame = SesameInventory.objects.values_list('batch_no', flat=True).distinct()
     
     context = {
         "extrudate": extrudate_inventory,

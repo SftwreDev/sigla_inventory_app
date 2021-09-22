@@ -17,6 +17,10 @@
           aria-label="Close"
         ></a>
       </div>
+        <small class="text-danger p-3">
+              Please be informed that you can only update this data once! <br>
+              Make sure to check everything before saving.
+        </small>
       <form action="/app/v1/update-flavourings" method="post">
         {% csrf_token %}
         <div class="modal-body">
@@ -29,14 +33,14 @@
               class="form-control"
               id="flavourings_id"
               name="flavourings_id"
-              readonly
+
             />
             <input
               type="number"
               class="form-control"
               id="inventory_id"
               name="inventory_id"
-              readonly
+
             />
           </div>
           <div class="mb-3">
@@ -48,7 +52,7 @@
               class="form-control"
               id="update_batch_no"
               name="update_batch_no"
-              readonly
+
             />
           </div>
           <div class="mb-3">
@@ -60,7 +64,7 @@
               class="form-control"
               id="update_flavourings"
               name="update_flavourings"
-              readonly
+
             />
           </div>
           <div class="mb-3">
@@ -71,7 +75,7 @@
               class="form-control"
               id="update_date_received"
               name="update_date_received"
-              readonly
+
             />
           </div>
           <div class="mb-3">
@@ -83,7 +87,7 @@
               class="form-control"
               id="update_total_avail_volume"
               name="update_total_avail_volume"
-              readonly
+
             />
           </div>
           <div class="mb-3">
@@ -96,7 +100,7 @@
               id="updateAmountConsumed"
               id="update_amount_consumed"
               name="update_amount_consumed"
-              required
+
             />
           </div>
           <div class="mb-3">
@@ -109,13 +113,13 @@
               id="updateDateConsumed"
               id="update_date_consumed"
               name="update_date_consumed"
-              required
+
             />
           </div>
         </div>
         <div class="modal-footer">
           <a
-            href="{% url 'mongo:mongo_list' %}"
+            href="{% url 'flavourings:flavourings_list' %}"
             class="btn btn-secondary"
           >
             Cancel

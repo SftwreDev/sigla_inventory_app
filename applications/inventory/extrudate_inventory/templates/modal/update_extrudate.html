@@ -1,6 +1,6 @@
 <div
   class="modal fade"
-  id="updateMongo"
+  id="updateExtrudate"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
   tabindex="-1"
@@ -10,98 +10,121 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Update Mongo Batch</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Update Extrudate</h5>
         <a
-          href="{% url 'mongo:mongo_list' %}"
+          href="{% url 'extrudate:extrudate_list' %}"
           class="btn-close"
           aria-label="Close"
         ></a>
       </div>
-      <form action="/app/v1/update-mongo" method="post">
+        <small class="text-danger p-3">
+          Please be informed that you can only update this data once! <br>
+          Make sure to check everything before saving.
+        </small>
+      <form action="/app/v1/update-extrudate" method="post">
         {% csrf_token %}
         <div class="modal-body">
-          <div class="mb-3" style="display: none;">
-            <label for="mongo_id" class="form-label"
+        <div class="mb-3" >
+            <label for="inventory_id" class="form-label"
               >ID  :
             </label>
             <input
               type="number"
               class="form-control"
-              id="mongo_id"
-              name="mongo_id"
-              readonly
-            />
-            <input
-              type="number"
-              class="form-control"
               id="inventory_id"
               name="inventory_id"
-              readonly
             />
           </div>
           <div class="mb-3">
             <label for="update_batch_no" class="form-label"
-              >EXTID To Update  :
+              >EXTID  :
             </label>
             <input
               type="number"
               class="form-control"
               id="update_batch_no"
               name="update_batch_no"
-              readonly
+
             />
           </div>
           <div class="mb-3">
-            <label for="update_date_received" class="form-label"
-              >Date Received :
-            </label>
-            <input
-              class="form-control"
-              id="update_date_received"
-              name="update_date_received"
-              readonly
-            />
-          </div>
-          <div class="mb-3">
-            <label for="update_total_avail_volume" class="form-label"
-              >Total Available Volume :
-            </label>
-            <input
-              type="number"
-              class="form-control"
-              id="update_total_avail_volume"
-              name="update_total_avail_volume"
-              readonly
-            />
-          </div>
-          <div class="mb-3">
-            <label for="updateAmountConsumed" class="form-label"
-              >Amount Consumed :
-            </label>
-            <input
-              type="number"
-              class="form-control"
-              id="updateAmountConsumed"
-              id="update_amount_consumed"
-              name="update_amount_consumed"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="updateDateConsumed" class="form-label"
-              >Date Consumed :
+            <label for="update_date_produced" class="form-label"
+              >Date Produced :
             </label>
             <input
               type="date"
               class="form-control"
-              id="updateDateConsumed"
-              id="update_date_consumed"
-              name="update_date_consumed"
+              id="update_date_produced"
+              name="update_date_produced"
             />
+          </div>
+          <div class="mb-3">
+            <label for="update_total_volume" class="form-label"
+              >Total Volume (kg) :
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="update_total_volume"
+              name="update_total_volume"
+
+            />
+          </div>
+          <div class="mb-3">
+            <label for="update_batch_no_mongo" class="form-label"
+              >Batch No. of Mongo :
+            </label>
+            {% comment %} <input
+              type="number"
+              class="form-control"
+              id="batch_no_mongo"
+              name="batch_no_mongo"
+            /> {% endcomment %}
+              <select class="form-select" name="update_batch_no_mongo" id="update_batch_no_mongo">
+{#              <option selected ></option>#}
+              {% for mongo in mongo %}
+                <option value="{{mongo}}">{{mongo}}</option>
+              {% endfor %}
+              </select>
+          </div>
+          <div class="mb-3">
+            <label for="update_batch_no_rice" class="form-label"
+              >Batch No. of Rice :
+            </label>
+            {% comment %} <input
+              type="number"
+              class="form-control"
+              id="batch_no_rice"
+              name="batch_no_rice"
+            /> {% endcomment %}
+              <select class="form-select" name="update_batch_no_rice" id="update_batch_no_rice">
+{#              <option selected value="0"></option>#}
+              {% for rice in rice %}
+                <option value="{{rice}}">{{rice}}</option>
+              {% endfor %}
+              </select>
+          </div>
+          <div class="mb-3">
+            <label for="update_batch_no_sesame" class="form-label"
+              >Batch No. of Sesame :
+            </label>
+            {% comment %} <input
+              type="number"
+              class="form-control"
+              id="batch_no_sesame"
+              name="batch_no_sesame"
+            /> {% endcomment %}
+            <select class="form-select" name="update_batch_no_sesame" id="update_batch_no_sesame">
+{#                <option selected value="0"></option>#}
+              {% for sesame in sesame %}
+                <option value="{{sesame}}">{{sesame}}</option>
+              {% endfor %}
+              </select>
           </div>
         </div>
         <div class="modal-footer">
           <a
-            href="{% url 'mongo:mongo_list' %}"
+            href="{% url 'extrudate:extrudate_list' %}"
             class="btn btn-secondary"
           >
             Cancel
