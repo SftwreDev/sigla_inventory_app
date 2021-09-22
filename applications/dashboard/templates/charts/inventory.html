@@ -8,7 +8,7 @@
         // Some raw data (not necessarily accurate)
        var data = google.visualization.arrayToDataTable([
           ['Today', 'Mongo', 'Rice' , 'Sesame' , 'Extrudate', 'Flavourings'],
-          ["Available Volume Today", {{ mongo_total }}, {{ rice_total }}, {{ sesame_total }}, {{ extrudate_total }}, {{ flavourings_total }}],
+          ["Available Volume Today", {{ mongo_total|default_if_none:"0" }}, {{ rice_total |default_if_none:"0"}}, {{ sesame_total|default_if_none:"0" }}, {{ extrudate_total|default_if_none:"0" }}, {{ flavourings_total|default_if_none:"0"}}],
         ]);
         var options = {
           title : 'Total Available Volume of All Products ( as of today )',

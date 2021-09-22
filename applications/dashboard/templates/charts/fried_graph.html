@@ -8,7 +8,7 @@
         // Some raw data (not necessarily accurate)
        var data = google.visualization.arrayToDataTable([
           ['Today', 'No of Packs(15g)' ,  'No of Packs(30g)'],
-          ["Available Volume Today", {{ fried_15g_total }}, {{ fried_30g_total }}],
+          ["Available Volume Today", {{ fried_15g_total|default_if_none:"0" }}, {{ fried_30g_total|default_if_none:"0" }}],
         ]);
         var options = {
           title : 'Total Packs for Batch Fried/Packed( as of today )',
