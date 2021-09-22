@@ -4,7 +4,7 @@
 <h3>Market Inventory</h3>
 
 <a
-  href="{% url 'dashboard:dashboard' %}"
+  href="{% url 'dashboard:inventory' %}"
   class="text-primary text-decoration-none"
   >
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
@@ -21,7 +21,7 @@
   data-bs-toggle="modal"
   data-bs-target="#staticBackdrop"
   style="
-    background-color: #003871;
+    background-color: #680c01;
     color: white;
     font-size: 12px;
     font-weight: bold;
@@ -60,7 +60,7 @@
                   lot_code='{{ list.lot_code }}' , 
                   date_delivered='{{ list.date_delivered }}')"
                 style="
-                  background-color: #003871;
+                  background-color: #680c01;
                   color: white;
                   font-size: 12px;
                   font-weight: bold;

@@ -4,7 +4,7 @@
 <h3>Mongo Products Inventory</h3>
 
 <a
-  href="{% url 'dashboard:dashboard' %}"
+  href="{% url 'dashboard:inventory' %}"
   class="text-primary text-decoration-none"
   >
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
@@ -26,7 +26,7 @@
 {% endif %}
 <div
   class="card shadow mt-2"
-  style="max-width: 300px; background-color: #003871; color: white"
+  style="max-width: 300px; background-color: #680c01; color: white"
 >
   <div class="card-body">
     <h4 class="display-4">{{ total }}</h4>
@@ -42,7 +42,7 @@
   data-bs-toggle="modal"
   data-bs-target="#staticBackdrop"
   style="
-    background-color: #003871;
+    background-color: #680c01;
     color: white;
     font-size: 12px;
     font-weight: bold;
@@ -96,7 +96,7 @@
                   amount_consumed='{{ consumed.amount_consumed}}',
                   date_consumed='{{ consumed.date_consumed }}')"
                 style="
-                  color: #003871;
+                  color: #680c01;
                   font-size: 12px;
                   font-weight: bold;
                   padding: 5px;
@@ -119,7 +119,7 @@
                   amount_consumed='{{ list.amount_consumed}}',
                   date_consumed='{{list.date_consumed }}')"
                 style="
-                  background-color: #003871;
+                  background-color: #680c01;
                   color: white;
                   font-size: 12px;
                   font-weight: bold;
@@ -174,7 +174,7 @@
                   amount_consumed='{{ consumed.amount_consumed}}',
                   date_consumed='{{ consumed.date_consumed }}')"
                 style="
-                  background-color: #003871;
+                  background-color: #680c01;
                   color: white;
                   font-size: 12px;
                   font-weight: bold;
@@ -201,7 +201,7 @@
                   amount_consumed='{{ list.amount_consumed}}',
                   date_consumed='{{list.date_consumed }}')"
                 style="
-                  background-color: #003871;
+                  background-color: #680c01;
                   color: white;
                   font-size: 12px;
                   font-weight: bold;
