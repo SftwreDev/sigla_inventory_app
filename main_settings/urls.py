@@ -19,4 +19,5 @@ urlpatterns = [
     path('app/v1/', include('applications.inventory.market_inventory.urls')),
     path('app/v1/', include('applications.inventory.fried_inventory.urls')),
     path('app/v1/', include('applications.inventory.flavourings_inventory.urls')),
+    path('app/v1/', include('applications.authentication.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

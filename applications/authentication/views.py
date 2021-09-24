@@ -19,3 +19,16 @@ class StaffSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect("/")
+
+
+def user_account_page(request):
+    template_name = "authentication/account_table.html"
+
+    user = User.objects.all()
+    form = StaffForm(request.POST)
+    context = {
+        "user": user,
+        "form" : form,
+    }
+
+    return render(request, template_name, context=context)

@@ -1,0 +1,192 @@
+{% load static %}
+<style>
+    .card-menu:hover {
+        transition: all 0.2s ease-out;
+        box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+        top: -10px;
+        border: 1px solid #cccccc;
+        background-color: white;
+  }
+
+    .card-menu {
+        width: 400px;
+        height: 90px;
+        font-size: 14px;
+        align-items: baseline;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-fixed navbar-light bg-light shadow fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img
+        src="{% static 'images/EZF3.png' %}"
+        class="rounded"
+        alt="SIGLA"
+        style="width: 50px"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+    {% if user.is_authenticated %}
+      <ul
+        class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll"
+        style="--bs-scroll-height: 100px"
+      >
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="{% url 'homepage:homepage' %}"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard:dashboard' %}"
+            >Dashboard</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="{% url 'dashboard:inventory' %}"
+            >Inventory</a
+          >
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Settings
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+              <li><a class="dropdown-item" href="{% url 'authentication:accounts_table' %}">Accounts</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/app/v1/accounts/logout">Sign out</a></li>
+            </ul>
+          </li>
+      </ul>
+    {% endif %}
+    </div>
+  </div>
+</nav>
+
+<div
+  class="offcanvas offcanvas-top"
+  tabindex="-1"
+  id="offcanvasTop"
+  aria-labelledby="offcanvasTopLabel"
+>
+  <div class="container">
+    <div class="offcanvas-header">
+      <h5 id="offcanvasTopLabel">Inventory Menu</h5>
+      <button
+        type="button"
+        class="btn-close text-reset"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+
+      <div class="card-group">
+          
+        <div class="card shadow card-menu" onclick="showMongo()">
+          <div class="card-body">
+            <h5>View Mongo Inventory</h5>
+            <small>View mongo inventory</small>
+          </div>
+        </div>
+
+        <div class="card shadow card-menu" onclick="showRice()">
+          <div class="card-body">
+            <h5>View Rice Inventory</h5>
+            <small>View rice inventory</small>
+          </div>
+        </div>
+
+        <div class="card shadow card-menu" onclick="showSesame()">
+          <div class="card-body">
+            <h5>View Sesame Inventory</h5>
+            <small>View sesame inventory</small>
+          </div>
+        </div>
+
+        <div class="card shadow card-menu" onclick="showExtrudate()">
+          <div class="card-body">
+            <h5>View Extrudate Inventory</h5>
+            <small>View extrudate inventory</small>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-group">
+
+        <div class="card shadow mt-3 card-menu" onclick="showFried()">
+            <div class="card-body">
+               <h5 >View Batch Fried/Packed Inventory</h5>
+               <small>View batch fried/packed inventory</small>
+            </div>
+          </div>
+
+          <div class="card shadow mt-3 card-menu" onclick="showMarket()">
+            <div class="card-body">
+               <h5 >View Market Inventory</h5>
+               <small>View market inventory</small>
+            </div>
+          </div>
+
+          <div class="card shadow mt-3 card-menu" onclick="showFlavours()">
+            <div class="card-body">
+               <h5 >View Flavourings Inventory</h5>
+               <small>View flavourings inventory</small>
+            </div>
+          </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function showMongo() {
+    var mongoInventory = "{% url 'mongo:mongo_list' %}";
+    document.location.href = mongoInventory;
+  }
+  function showRice() {
+    var riceInventory = "{% url 'rice:rice_list' %}";
+    document.location.href = riceInventory;
+  }
+  function showSesame() {
+    var sesameInventory = "{% url 'sesame:sesame_list' %}";
+    document.location.href = sesameInventory;
+  }
+  function showExtrudate() {
+    var extrudateInventory = "{% url 'extrudate:extrudate_list' %}";
+    document.location.href = extrudateInventory;
+  }
+  function showMarket() {
+    var extrudateInventory = "{% url 'market:market_list' %}";
+    document.location.href = extrudateInventory;
+  }
+  function showFried() {
+    var friedInventory = "{% url 'fried:fried_list' %}";
+    document.location.href = friedInventory;
+  }
+  function showFlavours() {
+    var flavouringsInventory = "{% url 'flavourings:flavourings_list' %}";
+    document.location.href = flavouringsInventory;
+  }
+</script>
