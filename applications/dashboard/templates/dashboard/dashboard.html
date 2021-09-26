@@ -1,14 +1,16 @@
 {% extends 'template.html' %} {% block body %}
 
 <div id="menuDashboard" style="display: none;">{% include 'menu/dashboard_menu.html' %}</div>
-<div class="container-fluid" id="graph">
+<div class="container" id="graph">
     <h3> Inventory Dashboard</h3>
     <hr>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <a href="{% url 'dashboard:inventory' %}" class="btn btn-primary me-md-2 btn-sm mb-4" >View Inventory Menu</a>
+      {% comment %} <a href="{% url 'dashboard:inventory' %}" class="btn btn-primary me-md-2 btn-sm mb-4" >View Inventory Menu</a> {% endcomment %}
     </div>
   <div class="row">
-      <div class="card shadow">
+        <p class="mt-3" style="font-size: 18px;">Inventory Analytics Dashboard</p>
+        <small class="text-muted">View Analytics of Inventory Item per day</small>
+      <div class="card shadow mt-3">
           <div class="card-body">
               {% include "charts/inventory.html" %}
           </div>

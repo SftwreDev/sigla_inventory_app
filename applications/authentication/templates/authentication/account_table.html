@@ -1,0 +1,79 @@
+{% extends 'template.html' %} 
+{% load crispy_forms_tags %}
+{% block body %}
+{% include "datatables.html" %}
+
+<h3 style="margin-top: 100px;">User's Accounts Table</h3>
+
+<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#registerModal">Add Account</button>
+<div class="card shadow mt-3" style="font-size: 12px">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-sm text-center" id="accountsTable">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Last Login</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for list in user %}
+          <tr>
+                <td>{{ list.id }}</td>
+                <td>{{ list.username }}</td>
+                <td>{{ list.date_joined }}</td>
+                <td>{{ list.last_login|default_if_none:"Not yet logging in" }}</td>
+                <td></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Create User Account</h5>
+        <a href="{% url 'authentication:accounts_table' %}" class="btn-close"  aria-label="Close"></a>
+      </div>
+      
+    <form method="post">
+      <div class="modal-body">
+        <div class="card-body">
+            {% csrf_token %} {{form|crispy}}
+            <div class="d-grid gap-2">
+            </div>
+         
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'authentication:accounts_table' %}" class="btn btn-secondary btn-sm" >Cancel</a>
+        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+      </div>
+    </div>
+     </form>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#accountsTable").DataTable({
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      fixedHeader: true,
+    });
+  });
+</script>
+
+{% endblock %}
+
+
