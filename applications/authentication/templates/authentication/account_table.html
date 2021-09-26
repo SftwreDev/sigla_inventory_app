@@ -9,7 +9,7 @@
 <div class="card shadow mt-3" style="font-size: 12px">
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-sm text-center" id="userTable">
+      <table class="table table-sm text-center" id="accountsTable">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -25,7 +25,8 @@
                 <td>{{ list.id }}</td>
                 <td>{{ list.username }}</td>
                 <td>{{ list.date_joined }}</td>
-                <td>{{ list.last_login }}</td>
+                <td>{{ list.last_login|default_if_none:"Not yet logging in" }}</td>
+                <td></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -40,7 +41,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Create User Account</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <a href="{% url 'authentication:accounts_table' %}" class="btn-close"  aria-label="Close"></a>
       </div>
       
     <form method="post">
@@ -53,7 +54,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+        <a href="{% url 'authentication:accounts_table' %}" class="btn btn-secondary btn-sm" >Cancel</a>
         <button type="submit" class="btn btn-primary btn-sm">Submit</button>
       </div>
     </div>
@@ -61,4 +62,18 @@
   </div>
 </div>
 
-{% endblock%}
+<script>
+  $(document).ready(function () {
+    $("#accountsTable").DataTable({
+      lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"],
+      ],
+      fixedHeader: true,
+    });
+  });
+</script>
+
+{% endblock %}
+
+

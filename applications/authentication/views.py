@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView
@@ -20,12 +21,20 @@ class StaffSignUpView(CreateView):
         login(self.request, user)
         return redirect("/")
 
-
+@login_required(login_url='/app/v1/accounts/login/')
 def user_account_page(request):
     template_name = "authentication/account_table.html"
 
     user = User.objects.all()
-    form = StaffForm(request.POST)
+    form = StaffForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect("authentication:accounts_table")
+    
+    else:
+        form = StaffForm(request.POST or None)
+
     context = {
         "user": user,
         "form" : form,
